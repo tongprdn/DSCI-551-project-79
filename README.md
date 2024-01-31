@@ -1,4 +1,4 @@
-# Final Project 
+# Final Project - Team 79
 
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">

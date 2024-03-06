@@ -1,10 +1,36 @@
-## Code requirement
-1. Deployment of four instances of MongoDB Atlas, with two dedicated to sharding and two to replication processes.
-2. Each database instance shall comprise four collections named: 'movies', 'person', 'users', and 'user_interactions'.
-3. Provision of an additional MongoDB Atlas instance to function as a metadata repository, analogous to the NameNode in Hadoop, which will manage the storage locations of data.
-4. Development of two web applications:
-   - An end-user application that provides functionality for searching, querying, and interacting with the database, including features to like, dislike, and view details. This application will perform read operations from the database for search and filter actions, and write operations for user interactions.
-   - An administrative application with a simple interface that allows for the addition, deletion, and editing of database content.
+## Code Scope
+Project: Develop a scalable movie database with user interaction capabilities
+
+### Objectives:
+
+- Design and implement a MongoDB database to store movie, user, and user interaction data.
+- Utilize MongoDB sharding on EC2 Ubuntu instances for horizontal scalability and fault tolerance.
+- Build two web applications:
+   - Admin application: Provides CRUD (Create, Read, Update, Delete) functionality for managing movie data.
+   - User application: Enables users to search and explore movie information, with functionalities such as liking, disliking, marking as watched, and clicking to view content. These interactions will be stored in the database for further analysis.
+
+### Technical Specifications:
+
+Database: MongoDB
+Hosting platform: EC2 Ubuntu instances
+MongoDB sharding:
+2 shard servers (3 replicas each)
+1 config server (3 replicas)
+1 mongos server for application access
+Database collections:
+- movies
+- users
+- user_interactions
+
+Deliverables:
+- Functional MongoDB database with sharding
+- Two fully operational web applications (admin and user)
+
+Success Criteria:
+- Database successfully stores and retrieves movie, user, and user interaction data.
+- Admin application facilitates data management tasks.
+- User application allows users to search, interact with, and view movie information.
+
 ## project_root/
 ### db/
     ├── __init__.py

@@ -100,3 +100,41 @@ Use this space to list online documentations needed in this project
     sh.status()
     ```
  <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Troubleshooting
+- Check MongoDB process
+   ```sh
+    ps -aef  | grep "mongo"
+   ```
+  or check TCP running
+   ```sh
+    sudo lsof -iTCP -sTCP:LISTEN -n -P
+   ```
+- Delete socket file (to fix permission issue)
+   ```sh
+    sudo rm -r /tmp/mongodb-*.sock
+   ```
+- Check MongoDB connection log
+   ```sh
+    cat ~/.mongodb/mongosh/<LogID>_log
+   ```
+- Forcing primary on replica set
+   ```sh
+    cfg = rs.conf()
+   cfg.members[0].priority = 1
+   cfg.members[1].priority = 0.5
+   cfg.members[2].priority = 0.5
+   ```
+  then
+   ```sh
+  rs.reconfig(cfg) 
+   ```
+  if it's not working, use "force"
+  ```sh
+  rs.reconfig(cfg, {force:true})
+   ```
+      
+  
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+

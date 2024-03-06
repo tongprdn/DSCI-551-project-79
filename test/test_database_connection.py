@@ -5,6 +5,7 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from src.db.connection import get_database
+from src.db.config import MONGO_CONNECTION_STRING, DATABASE_NAME
 
 
 class TestDatabaseConnection(unittest.TestCase):
@@ -12,12 +13,9 @@ class TestDatabaseConnection(unittest.TestCase):
         """
         Test the connection to the MongoDB database.
         """
-        # Replace with your actual connection string and database name
-        connection_string = "mongodb+srv://tongpr:Pooridon28206@dsci551-1.ffpvw6g.mongodb.net/?retryWrites=true&w=majority"
-        db_name = "netflix_data"
 
         try:
-            db = get_database(connection_string, db_name)
+            db = get_database(MONGO_CONNECTION_STRING, DATABASE_NAME)
             self.assertIsNotNone(db, "Failed to connect to the database.")
             print("Connected to the database successfully!")
         except Exception as e:

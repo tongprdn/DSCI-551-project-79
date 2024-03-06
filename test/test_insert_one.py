@@ -1,12 +1,11 @@
 import sys
 import os
 import unittest
-from pymongo import MongoClient
-from pymongo.errors import ConnectionFailure
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from src.db.operations import insert_document
 from src.db.connection import get_database
+from src.db.config import MONGO_CONNECTION_STRING, DATABASE_NAME
 
 
 class TestInsertDocument(unittest.TestCase):
@@ -16,12 +15,9 @@ class TestInsertDocument(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Set up the MongoDB connection for the entire test class
-        connection_string = "mongodb+srv://tongpr:Pooridon28206@dsci551-1.ffpvw6g.mongodb.net/?retryWrites=true&w=majority"
-        db_name = "netflix_data"
 
         try:
-            cls.client, cls.db = get_database(connection_string, db_name)
+            cls.client, cls.db = get_database(MONGO_CONNECTION_STRING, DATABASE_NAME)
             cls.assertIsNotNone(cls.db, "Failed to connect to the database.")
             cls.client.server_info()  # Force a call to check if connected to server
             print("Connected to the database successfully!")
@@ -30,11 +26,14 @@ class TestInsertDocument(unittest.TestCase):
 
     def test_insert_document(self):
         # Assuming that the 'persons' collection and document data are the same as in the second screenshot
-        collection_name = 'person'
+        collection_name = 'users'
         document = {
-            "name": "Tony Ratta",
-            "role": ["Director"],
-            "bio": "Thai film director..."
+            "username": "tongpr",
+            "password": "12345678",
+            "first_name": "Pooridon",
+            "last_name": "Rattanapairote",
+            "email": "tong28206@gmail.com",
+            "token": "aaaaaaaa"
         }
 
         # Insert document and get the inserted ID
@@ -43,8 +42,9 @@ class TestInsertDocument(unittest.TestCase):
         # Verify that the document exists in the collection
         inserted_document = self.db[collection_name].find_one({"_id": inserted_id})
         self.assertIsNotNone(inserted_document)
-        self.assertEqual(inserted_document['name'], document['name'])
-
+        self.assertEqual(inserted_document['username'], document['username'])
+        if inserted_document['username'] == document['username']:
+            print(f"\nSuccessfully inserted: {document['username']} to {collection_name} collection")
     @classmethod
     def tearDownClass(cls):
         # Clean up operations after all tests have run

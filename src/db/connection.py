@@ -1,11 +1,12 @@
 from pymongo import MongoClient
 import subprocess
 import re
-from .name_node import get_shard_location
 from pymongo import MongoClient, errors
+from .config import MONGO_CONNECTION_STRING, DATABASE_NAME
+from mongoengine import connect
 
 
-def get_database(connection_string, db_name):
+def get_database(connection_string=MONGO_CONNECTION_STRING, db_name=DATABASE_NAME):
     """
     Create a connection to a MongoDB Atlas database and return the database object.
 
@@ -40,18 +41,8 @@ def get_database(connection_string, db_name):
         raise
 
 
-def create_shard_connections(shard_uris):
-    """
-    Create connections to MongoDB shards.
-
-    Args:
-    shard_uris (dict): A dictionary of shard keys to their MongoDB URIs.
-
-    Returns:
-    dict: A dictionary of shard keys to their MongoDB client connections.
-    """
-    clients = {shard: MongoClient(uri) for shard, uri in shard_uris.items()}
-    return clients
+def connect_database():
+    connect(db=DATABASE_NAME, host=MONGO_CONNECTION_STRING)
 
 
 def check_server_latency(uri):
@@ -86,21 +77,3 @@ def check_server_latency(uri):
     except Exception as e:
         print(f"Error pinging server: {e}")
         return None
-
-
-def choose_best_shard(shard_keys):
-    """
-    Choose the best shard based on latency.
-
-    Args:
-    shard_keys (list): A list of shard keys to evaluate.
-
-    Returns:
-    str: The key of the shard with the best (lowest) latency.
-    """
-    shard_location = get_shard_location(shard_keys)
-    latencies = {shard: check_server_latency(uri) for shard, uri in shard_location.items()}
-    best_shard = min(latencies, key=latencies.get)
-    return best_shard
-
-# Add additional logic for replication if needed

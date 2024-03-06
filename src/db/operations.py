@@ -1,4 +1,8 @@
 from .connection import get_database
+from .models import User, Movie, UserInteraction
+from mongoengine.errors import NotUniqueError
+import datetime
+from mongoengine import ValidationError
 
 
 def insert_document(db, collection_name, document):
@@ -13,3 +17,105 @@ def insert_document(db, collection_name, document):
     collection = db[collection_name]
     result = collection.insert_one(document)
     return result.inserted_id
+
+
+def insert_movie(*args, **kwargs):
+    """
+    Insert a new movie into the database.
+
+    This function can be used in two ways:
+    1. Pass a Movie object directly as the argument.
+    2. Pass individual movie attributes as keyword arguments.
+
+    :param args: Movie instance (optional)
+    :param kwargs: Individual movie attributes (optional)
+    :return: The Movie document that was inserted.
+    :raises ValidationError: If there are issues with the data provided.
+    """
+    if args and isinstance(args[0], Movie):
+        # A Movie instance is provided
+        movie = args[0]
+    else:
+        # Individual movie attributes are provided
+        movie = Movie(**kwargs)
+    try:
+        # Data validation before saving
+        movie.validate()
+        # Insert the movie into the database
+        movie.save()
+    except ValidationError as e:
+        print(f"====DATA IS INVALID====")
+        raise e
+    except NotUniqueError as e:
+        print(f"====MOVIE IS ALREADY EXISTED====")
+        raise e
+    return movie
+
+
+def create_user(*args, **kwargs):
+    """
+    Create a new user in the 'users' collection of the MongoDB database.
+
+    This function can be used in two ways:
+    1. Pass a User object directly as the argument.
+    2. Pass individual user attributes as keyword arguments.
+
+    Args:
+        *args: User instance (optional).
+        **kwargs: Individual user attributes (optional).
+
+    Returns:
+        User: The User document that was inserted.
+
+    Raises:
+        ValidationError: If there are issues with the data provided.
+        NotUniqueError: If a user with the same username or email already exists.
+    """
+    if args and isinstance(args[0], User):
+        new_user = args[0]
+    else:
+        new_user = User(**kwargs)
+        # Ensure password hashing and other preprocessing as needed here
+        new_user.createAt = datetime.datetime.utcnow()
+
+    try:
+        # Validate and save the new user to the 'users' collection
+        new_user.validate()
+        new_user.save()
+        return new_user
+    except ValidationError as ve:
+        print(f"Data validation error: {ve}")
+        raise ve
+    except NotUniqueError as nue:
+        print(f"User with the username '{new_user.username}' or email '{new_user.email}' already exists.")
+        raise nue
+
+
+def insert_interaction(*args, **kwargs):
+    """
+    Insert a new interaction into the 'user_interactions' collection.
+
+    This function can be used in two ways:
+    1. Pass a UserInteraction object directly as the argument.
+    2. Pass individual interaction attributes as keyword arguments.
+
+    :param args: UserInteraction instance (optional).
+    :param kwargs: Individual interaction attributes (optional).
+
+    :return: The UserInteraction document that was inserted or an error message.
+    """
+    if args and isinstance(args[0], UserInteraction):
+        interaction = args[0]
+    else:
+        interaction = UserInteraction(**kwargs)
+
+    try:
+        interaction.validate()
+        interaction.save()
+        return interaction
+    except NotUniqueError as nue:
+        print("An interaction with the given user and movie already exists.")
+        raise nue
+    except ValidationError as ve:
+        print(f"Data validation error: {ve}")
+        raise ve

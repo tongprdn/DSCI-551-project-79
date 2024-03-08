@@ -58,8 +58,12 @@ Contains all database-related operations, including connection setup, schema def
 
 ### admin_app/ Directory: 
 Contains the code for the admin web application. This application facilitates database management tasks such as adding, deleting, and editing data.
-- main.py: The entry point for the admin app, setting up the web server and routing.
-- utils.py: Utility functions specifically for the admin app, like form processing or validation logic.
+- login page as a sign-in page to input username and password. this will check for admin user in users collection, only with admin_status >= 1. otherwise, it will prompt that they're not authorized
+- side tab to switch between collections: movies, credits, users, user_interactions
+- center session showing the first 10 documents, sorting by id with option to filter and sort data by any field
+- each document has a checkbox to select in the front
+- top right having button: insert, edit, delete. edit & delete button should be disabled, unless at least 1 document is selected
+- also having bulk upload to allow admin to upload json or csv file to add more items
 
 ### user_app/ Directory: 
 Contains the code for the end-user web application. This application allows users to search, query, and interact with the data.

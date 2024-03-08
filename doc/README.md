@@ -16,7 +16,7 @@ Use this space to list online documentations needed in this project
 ### Config Server
 1. Connect to EC2
     ```sh
-    ssh -i "dsci551-team79.pem" ubuntu@ec2-54-193-107-112.us-west-1.compute.amazonaws.com
+    ssh -i "dsci551-t3eam79.pem" ubuntu@ec2-54-193-107-112.us-west-1.compute.amazonaws.com
     ```
 2. Start mongoDB replica set for config server
     ```sh

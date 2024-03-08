@@ -33,7 +33,8 @@ class TestInsertDocument(unittest.TestCase):
             "first_name": "Pooridon",
             "last_name": "Rattanapairote",
             "email": "tong28206@gmail.com",
-            "token": "aaaaaaaa"
+            "token": "aaaaaaaa",
+            "admin_status": 1
         }
 
         # Insert document and get the inserted ID

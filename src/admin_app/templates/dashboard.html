@@ -6,13 +6,56 @@
     <!-- links to filter by collection -->
 </div>
 <div class="content">
-    <table>
-        <!-- table of documents -->
-    </table>
-    <button id="insert" disabled>Insert</button>
+    <button id="insert">Insert</button>
     <button id="edit" disabled>Edit</button>
     <button id="delete" disabled>Delete</button>
-    <!-- more content -->
+    <table>
+        <tr>
+            <th class="checkbox"><input type="checkbox" id="select-all" /></th>
+            <th>id</th>
+            <th>Title</th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Year</th>
+            <th>Restriction</th>
+            <th>Duration</th>
+            <th>Genre</th>
+            <th>Country</th>
+            <th>Season</th>
+            <th>IMDB ID</th>
+            <th>IMDB Score</th>
+            <th>IMDB Votes</th>
+            <th>TMDB Pop</th>
+            <th>TMDB Score</th>
+        </tr>
+        {% for movie in movies %}
+        <tr>
+            <td class="checkbox"><input type="checkbox" class="select-item" value="{{ movie._id }}" /></td>
+            <td>{{ movie._id }}</td>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.description }}</td>
+            <td>{{ movie.release_year}}</td>
+            <td>{{ movie.age_certification}}</td>
+            <td>{{ movie.runtime}}</td>
+            <td>{{ movie.genre}}</td>
+            <td>{{ movie.production_countries}}</td>
+            <td>{{ movie.seasons}}</td>
+            <td>{{ movie.imdb_id}}</td>
+            <td>{{ movie.imdb_score}}</td>
+            <td>{{ movie.imdb_votes}}</td>
+            <td>{{ movie.tmdb_popularity}}</td>
+            <td>{{ movie.tmdb_score}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div id="table-navigation">
+        <button id="first-page">« First</button>
+        <button id="previous-page">‹ Prev</button>
+        <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">10</span></span>
+        <button id="next-page">Next ›</button>
+        <button id="last-page">Last »</button>
+    </div>
+
 </div>
 {% endblock %}
 

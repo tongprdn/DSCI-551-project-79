@@ -6,6 +6,7 @@ from .forms import LoginForm
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from src.db.connection import connect_database
 from src.db.operations import check_user_credentials, list_documents
+from src.db.models import User
 
 admin_blueprint = Blueprint('admin', __name__)
 connect_database()
@@ -24,11 +25,13 @@ def login():
         password = form.password.data
         user = check_user_credentials(username, password)  # Check credentials
 
-        if user and user.admin_status >= 1:
-            # You can handle login logic here (like setting session variables)
-            return redirect(url_for('admin.dashboard'))  # Redirect to the dashboard
+        if not isinstance(user, User):
+            flash(user)
+        elif user.admin_status == 0:
+            flash("You're not authorized.")
         else:
-            flash('Invalid credentials or not authorized.')  # Show an error message
+            session['admin_id'] = str(user.id)
+            return redirect(url_for('admin.dashboard'))
 
     return render_template('login.html', form=form)
 

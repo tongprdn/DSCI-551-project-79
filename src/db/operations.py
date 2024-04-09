@@ -3,7 +3,7 @@ from .models import User, Movie, UserInteraction, Credit
 from mongoengine.errors import NotUniqueError
 import datetime
 from mongoengine import ValidationError
-from werkzeug.security import check_password_hash
+import bcrypt
 from mongoengine.queryset.visitor import Q
 
 
@@ -77,8 +77,10 @@ def create_user(*args, **kwargs):
         new_user = args[0]
     else:
         new_user = User(**kwargs)
-        # Ensure password hashing and other preprocessing as needed here
         new_user.createAt = datetime.datetime.utcnow()
+
+    new_user.password = hash_password(new_user.password)
+    print(new_user.password)
 
     try:
         # Validate and save the new user to the 'users' collection
@@ -135,9 +137,13 @@ def check_user_credentials(username, password):
         The User object if credentials are valid, None otherwise.
     """
     user = User.objects(username=username).first()
-    if user and check_password_hash(user.password_hash, password):
-        return user
-    return None
+    if not user:
+        return "User not found."
+    else:
+        if not check_password(password, user.password) :
+            return "Password Incorrect."
+        else:
+            return user
 
 
 from mongoengine.queryset.visitor import Q
@@ -191,3 +197,12 @@ def get_model(collection_name):
         'users': User
     }
     return mapping.get(collection_name)
+
+
+def hash_password(plain_text_password):
+    hashed = bcrypt.hashpw(plain_text_password.encode('utf-8'), bcrypt.gensalt())
+    return hashed.decode('utf-8')
+
+
+def check_password(plain_text_password, hashed_password):
+    return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_password.encode('utf-8'))

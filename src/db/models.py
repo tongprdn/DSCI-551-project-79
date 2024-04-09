@@ -57,7 +57,7 @@ class User(Document):
         createAt (datetime): The timestamp when the user account was created.
     """
     username = StringField(required=True, unique=True, max_length=50)
-    password = StringField(required=True, max_length=50)
+    password = StringField(required=True)
     first_name = StringField(required=True, max_length=50)
     last_name = StringField(required=True, max_length=50)
     email = StringField(required=True, unique=True, max_length=100)

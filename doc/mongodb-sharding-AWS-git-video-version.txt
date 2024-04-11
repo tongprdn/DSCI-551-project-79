@@ -255,6 +255,10 @@ rs.reconfig(cfg)
 				sh.balancerCollectionStatus( "netflix_data.movies" )		version 4.4	
 				db.movies.getShardDistribution()
 			
+			Split Manually
+				sh.splitAt("netflix_data.movies", { "title" : NumberLong(0) })
+				sh.moveChunk("netflix_data.movies", { "title" : NumberLong(0) }, "shard_repl")
+			
 			Test with collection 2:
 				db.credits.createIndex({ "person_id" : "hashed" })
 				sh.shardCollection("netflix_data.credits", {person_id: "hashed" } )

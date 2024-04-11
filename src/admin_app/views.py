@@ -43,6 +43,6 @@ def dashboard():
         return redirect(url_for('.login'))
 
     # Example of listing first 10 documents from 'movies' collection
-    movies = list_documents(collection='movies', limit=10, sort='id')
+    movies = list_documents(collection='movies', limit=100, sort='id')
     # You would need similar logic for 'credits', 'users', 'user_interactions'
     return render_template('dashboard.html', movies=movies)

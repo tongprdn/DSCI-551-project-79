@@ -128,7 +128,19 @@ Use this space to list online documentations needed in this project
 	)
    ```
 
-   
+## Shard Distribution Checking  
+- Database sharding status
+   ```sh
+    db.printShardingStatus()
+   ```
+- Balancer State
+   ```sh
+    sh.getBalancerState()
+   ```
+- Collection shard distribution
+   ```sh
+    db.movies.getShardDistribution()
+   ```
 
 
 

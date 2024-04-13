@@ -101,6 +101,37 @@ Use this space to list online documentations needed in this project
     ```
  <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## Shard Configuration
+- Enable Sharding
+   ```sh
+    sh.enableSharding("netflix_data")
+   ```
+- Create index
+   ```sh
+   use netflix_data
+   db.movies.createIndex({"title_hash": 1})
+   ```
+- Shard Collection
+   ```sh
+    sh.shardCollection("netflix_data.movies", {"title_hash": 1})
+   ```
+- Shard Collection
+   ```sh
+    sh.splitAt('netflix_data.movies', {'title_hash': 1})
+   ```
+- Move Chunk
+   ```sh
+    sh.moveChunk(
+	  "netflix_data.movies",
+	  { "title_hash": 1 },  // Lower bound of the shard key range for the chunk
+	  "shard2_repl"         // Target shard where you want to move the chunk
+	)
+   ```
+
+   
+
+
+
 ## Troubleshooting
 - Check MongoDB process
    ```sh
@@ -136,5 +167,8 @@ Use this space to list online documentations needed in this project
       
   
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
 
 

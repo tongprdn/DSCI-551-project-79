@@ -1,10 +1,12 @@
 from .connection import get_database
 from .models import User, Movie, UserInteraction, Credit
+from mongoengine import connect, get_db
 from mongoengine.errors import NotUniqueError
 import datetime
 from mongoengine import ValidationError
 import bcrypt
-from mongoengine.queryset.visitor import Q
+import pymongo
+from pymongo import MongoClient
 
 
 def insert_document(db, collection_name, document):
@@ -40,11 +42,32 @@ def insert_movie(*args, **kwargs):
     else:
         # Individual movie attributes are provided
         movie = Movie(**kwargs)
+    print("Hashed key", movie.title_hash)
+    print("Movie", movie.to_json())
+    if movie.title_hash is None:
+        raise ValueError("Title hash must be set for sharded collections.")
     try:
         # Data validation before saving
         movie.validate()
         # Insert the movie into the database
-        movie.save()
+        Movie.objects(_id=movie._id, title=movie.title, title_hash=movie.title_hash).update_one(
+            upsert=True,
+            set__title=movie.title,
+            set__type=movie.type,
+            set__description=movie.description,
+            set__release_year=movie.release_year,
+            set__age_certification=movie.age_certification,
+            set__runtime=movie.runtime,
+            set__genres=movie.genres,
+            set__production_countries=movie.production_countries,
+            set__seasons=movie.seasons,
+            set__imdb_id=movie.imdb_id,
+            set__imdb_score=movie.imdb_score,
+            set__imdb_votes=movie.imdb_votes,
+            set__tmdb_popularity=movie.tmdb_popularity,
+            set__tmdb_score=movie.tmdb_score,
+            set__title_hash=movie.title_hash  # Ensure this does not change if document exists
+        )
     except ValidationError as e:
         print(f"====DATA IS INVALID====")
         raise e
@@ -140,7 +163,7 @@ def check_user_credentials(username, password):
     if not user:
         return "User not found."
     else:
-        if not check_password(password, user.password) :
+        if not check_password(password, user.password):
             return "Password Incorrect."
         else:
             return user
@@ -149,16 +172,18 @@ def check_user_credentials(username, password):
 from mongoengine.queryset.visitor import Q
 
 
-def list_documents(collection, limit=10, sort='id', filter_by=None, order_by=None):
+def list_documents(collection, limit=100, sort_field='title', sort_direction=pymongo.ASCENDING, filter_by=None,
+                   filter_op=None):
     """
     List documents from the specified MongoDB collection.
 
     Args:
         collection (str): The name of the collection to list documents from.
         limit (int): The maximum number of documents to return.
-        sort (str): The field to sort the documents by.
+        sort_field (str): The field to sort the documents by.
+        sort_direction (str): pymongo.ASCENDING or pymongo.DESCENDING
         filter_by (dict): A dictionary for filtering results.
-        order_by (str): Field name to order by.
+        filter_op (str): A string to specify filtering operation.
 
     Returns:
         A list of documents from the collection.
@@ -168,14 +193,30 @@ def list_documents(collection, limit=10, sort='id', filter_by=None, order_by=Non
         return []
 
     query = model.objects()
-    if filter_by:
-        query = query.filter(**filter_by)
-    if order_by:
-        query = query.order_by(order_by)
-    else:
-        query = query.order_by(sort)
-
-    return query[:limit].as_pymongo()
+    if filter_by and filter_op:
+        for field, value in filter_by.items():
+            if filter_op == 'eq':
+                query = query.filter(**{field: value})
+            elif filter_op == 'ne':
+                query = query.filter(**{f'{field}__ne': value})
+            elif filter_op == 'contains':
+                query = query.filter(**{f'{field}__contains': value})
+            elif filter_op == 'gt':
+                query = query.filter(**{f'{field}__gt': value})
+            elif filter_op == 'lt':
+                query = query.filter(**{f'{field}__lt': value})
+            elif filter_op == 'gte':
+                query = query.filter(**{f'{field}__gte': value})
+            elif filter_op == 'lte':
+                query = query.filter(**{f'{field}__lte': value})
+    if sort_field:
+        order = '+' if sort_direction == 1 else '-'
+        query = query.order_by(f'{order}{sort_field}')
+    if limit:
+        query = query.limit(limit)
+    documents = query.all()
+    documents_dict_list = [doc.to_mongo().to_dict() for doc in documents]
+    return documents_dict_list
 
 
 def get_model(collection_name):
@@ -206,3 +247,17 @@ def hash_password(plain_text_password):
 
 def check_password(plain_text_password, hashed_password):
     return bcrypt.checkpw(plain_text_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+
+def get_keys(collection):
+    keys = []
+    if collection == 'movies':
+        keys = ['_id', 'title', 'type', 'description', 'release_year', 'age_certification', 'runtime', 'genres'
+            , 'production_countries', 'seasons', 'imdb_id', 'imdb_score', 'imdb_votes', 'tmdb_popularity', 'tmdb_score']
+    elif collection == 'credits':
+        keys = ['_id', 'person_id', 'movie_id', 'name', 'character', 'role']
+    elif collection == 'users':
+        keys = ['_id', "username", "password", "first_name", "last_name", "email", "token", "admin_status", "createAt"]
+    elif collection == 'user_interactions':
+        keys = ['_id', 'user', 'movie', 'watched', 'liked', 'disliked', 'clicked', 'clicked_on']
+    return keys

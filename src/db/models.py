@@ -10,7 +10,7 @@ class Movie(Document):
     """
     Schema definition for a Movie within the application.
     """
-    id = StringField(required=True, primary_key=True)
+    _id = StringField(required=True, primary_key=True)
     title = StringField(required=True)
     type = StringField(required=True)
     description = StringField()
@@ -25,6 +25,7 @@ class Movie(Document):
     imdb_votes = IntField()
     tmdb_popularity = FloatField()
     tmdb_score = FloatField()
+    title_hash = IntField()
 
     meta = {'collection': 'movies'}
 

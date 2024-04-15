@@ -13,7 +13,7 @@ class TestInsertDocument(unittest.TestCase):
 
         _, db = get_database()
         random_user = db['users'].find_one({"username": "tongpr"})
-        random_movie = db['movies'].find_one({"_id": "m123"})
+        random_movie = db['movies'].find_one({"_id": "tm84618"})
         connect_database()
         print(random_movie)
         interaction = {

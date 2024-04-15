@@ -3,50 +3,103 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="sidebar">
-    <!-- links to filter by collection -->
+    <nav class="sidebar">
+        <ul>
+            <li><a href="javascript:void(0);" onclick="loadCollection('movies')">Movies</a></li>
+            <li><a href="javascript:void(0);" onclick="loadCollection('credits')">Credits</a></li>
+            <li><a href="javascript:void(0);" onclick="loadCollection('users')">Users</a></li>
+            <li><a href="javascript:void(0);" onclick="loadCollection('user_interactions')">User Interactions</a></li>
+        </ul>
+    </nav>
 </div>
+
+
 <div class="content">
-    <button id="insert">Insert</button>
-    <button id="edit" disabled>Edit</button>
-    <button id="delete" disabled>Delete</button>
+    <div class="top-controls">
+        <div class="button-group">
+            <button id="insert">Insert</button>
+            <button id="edit" disabled>Edit</button>
+            <button id="delete" disabled>Delete</button>
+        </div>
+        <div class="controls-container">
+          <div class="filter-section">
+            <select id="sort-field">
+                {% for key in collection_keys %}
+                <option value="{{key}}">{{key|capitalize}}</option>
+                {% endfor %}
+            </select>
+            <select id="sort-order">
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+            <button onclick="applySort()">Sort</button>
+          </div>
+          <div class="sort-section">
+            <!-- Filter UI -->
+            <select id="filter-field">
+                {% for key in collection_keys %}
+                <option value="{{key}}">{{key|capitalize}}</option>
+                {% endfor %}
+            </select>
+
+            <select id="filter-operation">
+              <option value="eq">Equal</option>
+              <option value="ne">Not Equal</option>
+              <option value="contains">Contains</option>
+              <!-- ... other operations ... -->
+            </select>
+
+            <input type="text" id="filter-value" placeholder="Value" />
+
+            <button onclick="applyFilter()">Filter</button>
+          </div>
+        </div>
+    </div>
+
+    <div id="insertModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title">Insert {{collection_name}}</span>
+                <span id="form-close-btn" class="close-btn" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="insertForm" action="/insert_document" method="post" enctype="multipart/form-data">
+                {% if documents %}
+                    {% for key in collection_keys %}
+                        <div class="input-group">
+                            <label for="{{key}}-insert">{{ key}}:</label>
+                            <input type="text" id="{{key}}-insert" name="{{key}}"><br><br>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+              <label for="jsonFile">Upload JSON:</label>
+              <input type="file" id="jsonFile" name="jsonFile"><br><br>
+
+              <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
     <table>
-        <tr>
-            <th class="checkbox"><input type="checkbox" id="select-all" /></th>
-            <th>id</th>
-            <th>Title</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Year</th>
-            <th>Restriction</th>
-            <th>Duration</th>
-            <th>Genre</th>
-            <th>Country</th>
-            <th>Season</th>
-            <th>IMDB ID</th>
-            <th>IMDB Score</th>
-            <th>IMDB Votes</th>
-            <th>TMDB Pop</th>
-            <th>TMDB Score</th>
-        </tr>
-        {% for movie in movies %}
-        <tr>
-            <td class="checkbox"><input type="checkbox" class="select-item" value="{{ movie._id }}" /></td>
-            <td>{{ movie._id }}</td>
-            <td>{{ movie.title }}</td>
-            <td>{{ movie.description }}</td>
-            <td>{{ movie.release_year}}</td>
-            <td>{{ movie.age_certification}}</td>
-            <td>{{ movie.runtime}}</td>
-            <td>{{ movie.genre}}</td>
-            <td>{{ movie.production_countries}}</td>
-            <td>{{ movie.seasons}}</td>
-            <td>{{ movie.imdb_id}}</td>
-            <td>{{ movie.imdb_score}}</td>
-            <td>{{ movie.imdb_votes}}</td>
-            <td>{{ movie.tmdb_popularity}}</td>
-            <td>{{ movie.tmdb_score}}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th class="checkbox"><input type="checkbox" id="select-all" /></th>
+                {% if documents %}
+                    {% for key in collection_keys %}
+                        <th class="{{key}}-header">{{ key|capitalize }}</th>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for document in documents %}
+            <tr>
+                <td class="checkbox"><input type="checkbox" class="select-item" value="{{ document._id }}" /></td>
+                {% for key in collection_keys %}
+                    <td>{{document[key] |smart_truncate}}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <div id="table-navigation">
         <button id="first-page">« First</button>

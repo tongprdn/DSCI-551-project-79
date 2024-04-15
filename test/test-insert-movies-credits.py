@@ -4,6 +4,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from src.db.models import Movie, Credit
 from src.db.connection import connect_database
+from src.db.operations import insert_movie
 
 
 def insert_sample_movie():
@@ -23,9 +24,10 @@ def insert_sample_movie():
         imdb_score=7.5,
         imdb_votes=10000,
         tmdb_popularity=10.0,
-        tmdb_score=8.0
+        tmdb_score=8.0,
+        title_hash=0
     )
-    movie.save()
+    insert_movie(movie)
     return movie
 
 

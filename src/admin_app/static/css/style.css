@@ -44,6 +44,7 @@ body {
     cursor: pointer;
 }
 
+
 .btn-primary:hover {
     background-color: #0056b3;
 }
@@ -94,7 +95,16 @@ table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }
 
-/* Style for buttons */
+button#delete:not([disabled]) {
+  background-color: red;
+  transition: background-color 0.3s ease; /* Optional: smoother color transition */
+}
+
+/* Optional: Specify a lighter red color for hover effect */
+button#delete:hover:not([disabled]) {
+  background-color: #ffcccc; /* Light red */
+}
+
 button {
     padding: 10px 20px;
     margin-right: 10px;
@@ -115,6 +125,8 @@ button:disabled {
 button:hover:not(:disabled) {
     background-color: #45a049;
 }
+
+
 
 /* Style for the content area */
 .content {

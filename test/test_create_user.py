@@ -14,17 +14,11 @@ class TestInsertDocument(unittest.TestCase):
         user_param = {
             # "username": "john001",
             # "password": "password",
-            # "first_name": "John",
-            # "last_name": "Doe",
             # "email": "johndoe@gmail.com",
-            # "token": "test",
             # "admin_status": 0
             "username": "tongpr",
             "password": "12345678",
-            "first_name": "Tony",
-            "last_name": "Ratta",
             "email": "tong28206@gmail.com",
-            "token": "test1",
             "admin_status": 1
 
         }

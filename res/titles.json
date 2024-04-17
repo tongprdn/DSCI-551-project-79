@@ -28968,23 +28968,6 @@
     "tmdb_score": ""
   },
   {
-    "id": "tm1063792",
-    "title": "",
-    "type": "MOVIE",
-    "description": "",
-    "release_year": 2015,
-    "age_certification": "",
-    "runtime": 11,
-    "genres": [],
-    "production_countries": [],
-    "seasons": "",
-    "imdb_id": "tt4661188",
-    "imdb_score": "",
-    "imdb_votes": "",
-    "tmdb_popularity": "",
-    "tmdb_score": ""
-  },
-  {
     "id": "tm234735",
     "title": "Time Out",
     "type": "MOVIE",
@@ -82436,7 +82419,7 @@
     "id": "tm992844",
     "title": "The Dig",
     "type": "MOVIE",
-    "description": "As WWII looms, a wealthy widow hires an amateur archaeologist to excavate the burial mounds on her estate. When they make a historic discovery, the echoes of Britain's past resonate in the face of its uncertain future‎.",
+    "description": "As WWII looms, a wealthy widow hires an amateur archaeologist to excavate the burial mounds on her estate. When they make a historic discovery, the echoes of Britain's past resonate in the face of its uncertain future.",
     "release_year": 2021,
     "age_certification": "PG-13",
     "runtime": 112,

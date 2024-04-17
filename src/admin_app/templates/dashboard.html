@@ -1,115 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-{% extends 'base.html' %}
-{% block content %}
-<div class="sidebar">
-    <nav class="sidebar">
-        <ul>
+   {% extends 'base.html' %}
+   {% block content %}
+   <div class="sidebar">
+      <nav class="sidebar">
+         <ul>
             <li><a href="javascript:void(0);" onclick="loadCollection('movies')">Movies</a></li>
             <li><a href="javascript:void(0);" onclick="loadCollection('credits')">Credits</a></li>
             <li><a href="javascript:void(0);" onclick="loadCollection('users')">Users</a></li>
             <li><a href="javascript:void(0);" onclick="loadCollection('user_interactions')">User Interactions</a></li>
-        </ul>
-    </nav>
-</div>
-
-
-<div class="content">
-    <div class="top-controls">
-        <div class="button-group">
-            <button id="insert">Insert</button>
+         </ul>
+      </nav>
+   </div>
+   <div class="content">
+      <div class="top-controls">
+         <div class="button-group">
+            <button id="insert" onclick="openModal('insertModal')">Insert</button>
             <button id="edit" disabled>Edit</button>
             <button id="delete" disabled>Delete</button>
-        </div>
-        <div class="controls-container">
-          <div class="filter-section">
-            <select id="sort-field">
-                {% for key in collection_keys %}
-                <option value="{{key}}">{{key|capitalize}}</option>
-                {% endfor %}
-            </select>
-            <select id="sort-order">
-              <option value="asc">Ascending</option>
-              <option value="desc">Descending</option>
-            </select>
-            <button onclick="applySort()">Sort</button>
-          </div>
-          <div class="sort-section">
-            <!-- Filter UI -->
-            <select id="filter-field">
-                {% for key in collection_keys %}
-                <option value="{{key}}">{{key|capitalize}}</option>
-                {% endfor %}
-            </select>
-
-            <select id="filter-operation">
-              <option value="eq">Equal</option>
-              <option value="ne">Not Equal</option>
-              <option value="contains">Contains</option>
-              <!-- ... other operations ... -->
-            </select>
-
-            <input type="text" id="filter-value" placeholder="Value" />
-
-            <button onclick="applyFilter()">Filter</button>
-          </div>
-        </div>
-    </div>
-
-    <div id="insertModal" class="modal">
-        <div class="modal-content">
+         </div>
+         <div class="controls-container">
+            <div class="filter-section">
+               <select id="sort-field">
+                  {% for key in collection_keys %}
+                  <option value="{{key}}">{{key|capitalize}}</option>
+                  {% endfor %}
+               </select>
+               <select id="sort-order">
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+               </select>
+               <button onclick="applySort()">Sort</button>
+            </div>
+            <div class="sort-section">
+               <!-- Filter UI -->
+               <select id="filter-field">
+                  {% for key in collection_keys %}
+                  <option value="{{key}}">{{key|capitalize}}</option>
+                  {% endfor %}
+               </select>
+               <select id="filter-operation">
+                  <option value="eq">Equal</option>
+                  <option value="ne">Not Equal</option>
+                  <option value="contains">Contains</option>
+                  <!-- ... other operations ... -->
+               </select>
+               <input type="text" id="filter-value" placeholder="Value" />
+               <button onclick="applyFilter()">Filter</button>
+            </div>
+         </div>
+      </div>
+      <div id="insertModal" class="modal" style="display: none;">
+         <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-title">Insert {{collection_name}}</span>
-                <span id="form-close-btn" class="close-btn" onclick="closeModal()">&times;</span>
+               <span class="modal-title">Insert {{collection_name}}</span>
+               <span id="form-close-btn" class="close-btn" onclick="closeModal('insertModal')">&times;</span>
             </div>
             <form id="insertForm" action="/insert_document" method="post" enctype="multipart/form-data">
-                {% if documents %}
-                    {% for key in collection_keys %}
-                        <div class="input-group">
-                            <label for="{{key}}-insert">{{ key}}:</label>
-                            <input type="text" id="{{key}}-insert" name="{{key}}"><br><br>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-              <label for="jsonFile">Upload JSON:</label>
-              <input type="file" id="jsonFile" name="jsonFile"><br><br>
-
-              <input type="submit" value="Submit">
+               {% for key in collection_keys %}
+               {% if key != 'createAt' %}
+                  {% if key != '_id' or collection_name == 'movies' %}
+                  <div class="input-group">
+                     <label for="{{key}}-insert">{{key}}:</label>
+                     <input type="text" id="{{key}}-insert" name="{{key}}"><br><br>
+                  </div>
+                  {% endif %}
+               {% endif %}
+               {% endfor %}
+               <label for="jsonFile">Upload JSON:</label>
+               <input type="file" id="jsonFile" name="jsonFile"><br><br>
+               <input type="submit" value="Submit">
             </form>
-        </div>
-    </div>
-
-    <table>
-        <thead>
+         </div>
+      </div>
+      <div id="editModal" class="modal" style="display: none;">
+         <div class="modal-content">
+            <div class="modal-header">
+               <span class="modal-title">Edit {{collection_name}}</span>
+               <span id="edit-close-btn" class="close-btn" onclick="closeModal('editModal')">&times;</span>
+            </div>
+            <form id="editForm" action="/edit_document" method="post" enctype="multipart/form-data">
+               {% for key in collection_keys %}
+               {% if key != 'createAt' and key != '_id' %}
+                  <div class="input-group">
+                     <label for="{{key}}-edit">{{key}}</label>
+                     <input type="text" id="{{key}}-edit" name="{{key}}"><br><br>
+                  </div>
+               {% endif %}
+               {% endfor %}
+               <input type="submit" value="Submit">
+            </form>
+         </div>
+      </div>
+      <table>
+         <thead>
             <tr>
-                <th class="checkbox"><input type="checkbox" id="select-all" /></th>
-                {% if documents %}
-                    {% for key in collection_keys %}
-                        <th class="{{key}}-header">{{ key|capitalize }}</th>
-                    {% endfor %}
-                {% endif %}
+               <th class="checkbox"><input type="checkbox" id="select-all" /></th>
+               {% if documents %}
+               {% for key in collection_keys %}
+               <th class="{{key}}-header">{{ key|capitalize }}</th>
+               {% endfor %}
+               {% endif %}
             </tr>
-        </thead>
-        <tbody>
+         </thead>
+         <tbody>
             {% for document in documents %}
             <tr>
-                <td class="checkbox"><input type="checkbox" class="select-item" value="{{ document._id }}" /></td>
-                {% for key in collection_keys %}
-                    <td>{{document[key] |smart_truncate}}</td>
-                {% endfor %}
+               <td class="checkbox"><input type="checkbox" class="select-item" value="{{ document._id }}" /></td>
+               {% for key in collection_keys %}
+               <td>{{document[key] |smart_truncate}}</td>
+               {% endfor %}
             </tr>
             {% endfor %}
-        </tbody>
-    </table>
-    <div id="table-navigation">
-        <button id="first-page">« First</button>
-        <button id="previous-page">‹ Prev</button>
-        <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">10</span></span>
-        <button id="next-page">Next ›</button>
-        <button id="last-page">Last »</button>
-    </div>
-
-</div>
-{% endblock %}
-
+         </tbody>
+      </table>
+      <div id="table-navigation">
+         <button id="first-page">« First</button>
+         <button id="previous-page">‹ Prev</button>
+         <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">10</span></span>
+         <button id="next-page">Next ›</button>
+         <button id="last-page">Last »</button>
+      </div>
+   </div>
+   {% endblock %}
 </html>

@@ -17,8 +17,8 @@ class TestInsertDocument(unittest.TestCase):
         connect_database()
         print(random_movie)
         interaction = {
-            "user": random_user["_id"],
-            "movie": random_movie["_id"]
+            "user_id": random_user["_id"],
+            "movie_id": random_movie["_id"]
         }
 
         inserted_id = insert_interaction(**interaction).id

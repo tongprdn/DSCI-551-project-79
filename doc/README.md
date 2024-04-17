@@ -167,10 +167,7 @@ Use this space to list online documentations needed in this project
    cfg.members[0].priority = 1
    cfg.members[1].priority = 0.5
    cfg.members[2].priority = 0.5
-   ```
-  then
-   ```sh
-  rs.reconfig(cfg) 
+   rs.reconfig(cfg) 
    ```
   if it's not working, use "force"
   ```sh

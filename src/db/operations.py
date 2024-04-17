@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 from .connection import get_database
 from .models import User, Movie, UserInteraction, Credit
 from mongoengine.errors import NotUniqueError
@@ -145,8 +147,7 @@ def insert_interaction(interaction):
     1. Pass a UserInteraction object directly as the argument.
     2. Pass individual interaction attributes as keyword arguments.
 
-    :param args: UserInteraction instance (optional).
-    :param kwargs: Individual interaction attributes (optional).
+    :param interaction: UserInteraction instance
 
     :return: The UserInteraction document that was inserted or an error message.
     """
@@ -311,7 +312,7 @@ def preprocess_json_item(item, document_cls):
         elif field.required:
             if field_name != '_id':
                 raise ValueError(f"The required field '{field_name}' is missing from the input item.")
-    print(processed_item)
+    print("Processed done:", processed_item)
     return document_cls(**processed_item)
 
 
@@ -352,6 +353,7 @@ def delete_documents(collection_name, criteria):
 
 
 def get_item_by_id(collection_name, item_id):
+    print('get_item_by_id', collection_name, item_id)
     try:
         model = get_model(collection_name)
         if collection_name == 'movies':
@@ -359,8 +361,8 @@ def get_item_by_id(collection_name, item_id):
         else:
             item = model.objects.get(id=item_id)
         return item.to_dict()
-    except (DoesNotExist, ValidationError):
-        return None
+    except (DoesNotExist, ValidationError) as e:
+        raise Exception(e)
 
 
 def update_one(collection_name, item_id, update_data):
@@ -384,6 +386,18 @@ def update_one(collection_name, item_id, update_data):
 
         for field_name, value in update_data.items():
             if hasattr(document, field_name):
+                if field_name == 'liked':
+                    value = value in ['true', 'True', 1]
+                if field_name == 'movie_id':
+                    try:
+                        value = Movie.objects.get(_id=value)
+                    except Exception as e:
+                        raise Exception(e)
+                elif field_name == 'user_id':
+                    try:
+                        value = User.objects.get(id=value)
+                    except Exception as e:
+                        raise Exception(e)
                 setattr(document, field_name, value)
 
         # Save the changes to the database

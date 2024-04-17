@@ -55,7 +55,7 @@ class Movie(BaseDocument):
 
     meta = {
         'collection': 'movies',
-        'shard_key': '_title_hash_1'
+        'shard_key': ('title_hash',)
     }
 
 

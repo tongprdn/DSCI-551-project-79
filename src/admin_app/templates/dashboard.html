@@ -58,7 +58,7 @@
             </div>
             <form id="insertForm" action="/insert_document" method="post" enctype="multipart/form-data">
                {% for key in collection_keys %}
-               {% if key != 'createAt' %}
+               {% if key != 'createAt' and key != 'liked_on'%}
                   {% if key != '_id' or collection_name == 'movies' %}
                   <div class="input-group">
                      <label for="{{key}}-insert">{{key}}:</label>
@@ -81,7 +81,7 @@
             </div>
             <form id="editForm" action="/edit_document" method="post" enctype="multipart/form-data">
                {% for key in collection_keys %}
-               {% if key != 'createAt' and key != '_id' %}
+               {% if key != 'createAt' and key != '_id' and key != 'liked_on'%}
                   <div class="input-group">
                      <label for="{{key}}-edit">{{key}}</label>
                      <input type="text" id="{{key}}-edit" name="{{key}}"><br><br>

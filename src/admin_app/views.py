@@ -142,7 +142,7 @@ def delete_document():
 def get_item_data(collection_name, item_id):
     # Assuming get_item_by_id is a function that queries your database and returns the item data as a dictionary
     item_data = get_item_by_id(collection_name, item_id)
-    print(item_data)
+    print('get_item_data', item_data)
     if item_data:
         # If the item data was found, return it as JSON
         return jsonify(item_data), 200
@@ -156,10 +156,14 @@ def edit_document(collection_name, item_id):
     data = request.form.to_dict()
     if 'title' in data:
         del data['title']
-    print(data)
+    if 'createAt' in data:
+        del data['creatAt']
+    if 'liked_on' in data:
+        del data['liked_on']
+    print('edit_document', data)
     try:
         update_one(collection_name, item_id, data)
     except Exception as e:
-        return jsonify({'status': 'error', 'message': f'Cannot insert file due to: {e}'})
+        return jsonify({'status': 'error', 'message': f'Cannot edit file due to: {e}'})
 
-    return jsonify({'status': 'success', 'message': f'Document inserted successfully'})
+    return jsonify({'status': 'success', 'message': f'Document edited successfully'})

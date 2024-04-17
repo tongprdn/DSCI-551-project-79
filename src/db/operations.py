@@ -86,7 +86,7 @@ def create_user(*args, **kwargs):
         new_user.createAt = datetime.datetime.utcnow()
 
     new_user.password = hash_password(new_user.password)
-    print(new_user.password)
+    print("hash password:", new_user.password)
 
     try:
         # Validate and save the new user to the 'users' collection
@@ -195,8 +195,8 @@ def check_user_credentials(username, password):
             return user
 
 
-def list_documents(collection, limit=100, sort_field='title', sort_direction=pymongo.ASCENDING, filter_by=None,
-                   filter_op=None):
+def list_documents(collection, limit=None, sort_field='title', sort_direction=pymongo.ASCENDING, filter_by=None,
+                   filter_op=None, skip=None):
     """
     List documents from the specified MongoDB collection.
 
@@ -207,6 +207,7 @@ def list_documents(collection, limit=100, sort_field='title', sort_direction=pym
         sort_direction (str): pymongo.ASCENDING or pymongo.DESCENDING
         filter_by (dict): A dictionary for filtering results.
         filter_op (str): A string to specify filtering operation.
+        skip (int): A number of documents to skip.
 
     Returns:
         A list of documents from the collection.
@@ -235,6 +236,8 @@ def list_documents(collection, limit=100, sort_field='title', sort_direction=pym
     if sort_field:
         order = '+' if sort_direction == 1 else '-'
         query = query.order_by(f'{order}{sort_field}')
+    if skip:
+        query = query.skip(skip)
     if limit:
         query = query.limit(limit)
     documents = query.all()
@@ -388,6 +391,8 @@ def update_one(collection_name, item_id, update_data):
             if hasattr(document, field_name):
                 if field_name == 'liked':
                     value = value in ['true', 'True', 1]
+                if field_name == 'password':
+                    value = hash_password(value)
                 if field_name == 'movie_id':
                     try:
                         value = Movie.objects.get(_id=value)

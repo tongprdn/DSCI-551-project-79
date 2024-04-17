@@ -93,6 +93,55 @@ document.addEventListener('DOMContentLoaded', (event) => {
         updateNavigationButtons();
     }
 
+    function loadMoreData() {
+        const currentUrlParams = new URLSearchParams(window.location.search);
+        const sort_field = currentUrlParams.get('sort') || null;
+        const sort_order = currentUrlParams.get('order') || null;
+        const filter_field = currentUrlParams.get('field') || null;
+        const filter_op = currentUrlParams.get('op') || null;
+        const filter_value = currentUrlParams.get('value') || null;
+        const params = new URLSearchParams({
+            collection: getCollectionNameFromURL(),
+            limit: 1000,
+            skip: totalRows, // Adjust this to the correct number based on your pagination
+            sort_field: sort_field,
+            sort_order: sort_order,
+            filter_field: filter_field,
+            filter_op: filter_op,
+            filter_value: filter_value
+        });
+        fetch('/load-more-data?' + params.toString(), {
+                method: 'GET', // Or 'POST' if required
+                // Include any other necessary request details
+            })
+            .then(response => response.json())
+            .then(data => {
+                appendNewRows(data.newRows);
+                totalPages = Math.ceil(totalRows / rowsPerPage);
+                // currentPage = totalPages;
+                displayRows(); // This will display the newly added rows
+            })
+            .catch(error => console.error('Error loading more data:', error));
+    }
+
+    function appendNewRows(newRows) {
+        // Convert newRows to HTML and append to the table's tbody
+        const tableBody = document.querySelector('table tbody');
+        newRows.forEach(rowData => {
+            const row = document.createElement('tr');
+            // Assuming rowData is an object with keys corresponding to columns
+            for (let key in rowData) {
+                const cell = document.createElement('td');
+                cell.textContent = rowData[key];
+                row.appendChild(cell);
+            }
+            tableBody.appendChild(row);
+        });
+
+        // Update your documents variable if needed, or any other state tracking the total number of rows
+        // For example: documents.push(...newRows);
+    }
+
     document.getElementById('first-page').addEventListener('click', () => {
         currentPage = 1;
         displayRows();
@@ -106,6 +155,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     document.getElementById('next-page').addEventListener('click', () => {
+        // if (currentPage === totalPages - 1) {
+        //     loadMoreData();
+        // } else
         if (currentPage < totalPages) {
             currentPage += 1;
             displayRows();
@@ -247,7 +299,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // Prevent the default form submission
         event.preventDefault();
         const formData = new FormData();
-        const collection_name =  getCollectionNameFromURL();
+        const collection_name = getCollectionNameFromURL();
         const inputs = document.querySelectorAll('#editForm .input-group input[type="text"]');
         inputs.forEach(input => {
             if (input.value) { // Only add input values that are not empty

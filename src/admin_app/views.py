@@ -68,7 +68,7 @@ def dashboard(collection_name):
 
     documents = list_documents(
         collection=collection_name,
-        limit=100,
+        limit=1000,
         sort_field=sort_field,
         sort_direction=sort_direction,
         filter_by=filter_by,
@@ -87,17 +87,21 @@ def insert_document():
             flash('No selected file')
             return redirect(request.url)
         if file:
-            data = json.load(file)
             try:
+                data = json.load(file)
                 for item in data:
                     document = preprocess_json_item(item, get_model(collection_name))
                     insert_one(collection_name, document)
             except Exception as e:
                 return jsonify({'status': 'error', 'message': f'Cannot insert file due to: {e}'})
     else:
-        # Process single field inputs
         try:
             data = request.form.to_dict()
+            print(data)
+            if 'admin_status' in data and int(data['admin_status']) == 2:
+                print("checking admin status")
+                if not check_admin_status(session['admin_id']):
+                    return jsonify({'status': 'error', 'message': f'You are not authorized to add super admin'})
             document = preprocess_json_item(data, get_model(collection_name))
             insert_one(collection_name, document)
         except Exception as e:
@@ -106,10 +110,25 @@ def insert_document():
     return jsonify({'status': 'success', 'message': f'Document inserted successfully'})
 
 
+def check_admin_status(admin_id):
+    if session['admin_id']:
+        user = get_item_by_id('users', admin_id)
+        print(user['admin_status'])
+        if user['admin_status'] < 2:
+            return False
+        else:
+            return True
+
+
 @admin_blueprint.route('/delete_document', methods=['POST'])
 def delete_document():
     collection_name = request.form.get('collection_name')
     if request.form.get('select-all'):
+        if session['admin_id']:
+            user = get_item_by_id('users', session['admin_id'])
+            if user['admin_status'] < 2:
+                return jsonify({'status': 'error', 'message': f'You are not authorized on this action. '
+                                                              f'Please contact super admin'})
         params = request.form.get('params')
         params_dict = parse.parse_qs(parse.urlsplit(params).query)
         filterField = params_dict['field'][0]
@@ -167,3 +186,34 @@ def edit_document(collection_name, item_id):
         return jsonify({'status': 'error', 'message': f'Cannot edit file due to: {e}'})
 
     return jsonify({'status': 'success', 'message': f'Document edited successfully'})
+
+
+@admin_blueprint.route('/load-more-data', methods=['GET'])
+def load_more_data():
+    collection_name = request.args.get('collection')
+    limit = 1000
+    skip = int(request.args.get('skip', 0))
+    sort_field = request.args.get('sort_field')
+    sort_order = request.args.get('sort_order')
+    filter_field = request.args.get('filter_field')
+    filter_op = request.args.get('filter_op')
+    filter_value = request.args.get('filter_value')
+    print(request.args)
+    sort_direction = pymongo.ASCENDING if sort_order == 'asc' else pymongo.DESCENDING
+    filter_by = {filter_field: filter_value}
+    documents = list_documents(
+        collection=collection_name,
+        limit=limit,
+        sort_field=sort_field,
+        sort_direction=sort_direction,
+        filter_by=filter_by,
+        filter_op=filter_op,
+        skip=skip
+    )
+
+    response = {
+        'newRows': documents,
+        'totalRows': len(documents)
+    }
+
+    return response

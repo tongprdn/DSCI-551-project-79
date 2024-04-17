@@ -1,29 +1,15 @@
 from .connection import get_database
 from .models import User, Movie, UserInteraction, Credit
-from mongoengine import connect, get_db
 from mongoengine.errors import NotUniqueError
 import datetime
-from mongoengine import ValidationError
+from mongoengine import ValidationError, Document, DoesNotExist
+from mongoengine.fields import StringField, IntField, FloatField, ListField
 import bcrypt
 import pymongo
-from pymongo import MongoClient
+import ast
 
 
-def insert_document(db, collection_name, document):
-    """
-    Insert a document into a MongoDB collection.
-
-    :param db: The database object
-    :param collection_name: The name of the collection to insert the document into.
-    :param document: A dictionary representing the document to insert.
-    :return: The ID of the inserted document.
-    """
-    collection = db[collection_name]
-    result = collection.insert_one(document)
-    return result.inserted_id
-
-
-def insert_movie(*args, **kwargs):
+def insert_movie(movie):
     """
     Insert a new movie into the database.
 
@@ -31,21 +17,15 @@ def insert_movie(*args, **kwargs):
     1. Pass a Movie object directly as the argument.
     2. Pass individual movie attributes as keyword arguments.
 
-    :param args: Movie instance (optional)
-    :param kwargs: Individual movie attributes (optional)
+    :param movie: Movie instance
     :return: The Movie document that was inserted.
     :raises ValidationError: If there are issues with the data provided.
     """
-    if args and isinstance(args[0], Movie):
-        # A Movie instance is provided
-        movie = args[0]
-    else:
-        # Individual movie attributes are provided
-        movie = Movie(**kwargs)
-    print("Hashed key", movie.title_hash)
-    print("Movie", movie.to_json())
+    if not isinstance(movie, Movie):
+        raise Exception('The argument must be Movie Type')
+
     if movie.title_hash is None:
-        raise ValueError("Title hash must be set for sharded collections.")
+        movie.title_hash = custom_hash(title=movie.title)
     try:
         # Data validation before saving
         movie.validate()
@@ -74,6 +54,7 @@ def insert_movie(*args, **kwargs):
     except NotUniqueError as e:
         print(f"====MOVIE IS ALREADY EXISTED====")
         raise e
+    print(f"Insert {movie.title} successfully")
     return movie
 
 
@@ -118,7 +99,45 @@ def create_user(*args, **kwargs):
         raise nue
 
 
-def insert_interaction(*args, **kwargs):
+def insert_credit(credit):
+    """
+        Insert a new movie into the database.
+
+        This function can be used in two ways:
+        1. Pass a Movie object directly as the argument.
+        2. Pass individual movie attributes as keyword arguments.
+
+        :param credit: Credit instance
+        :return: The Credit document that was inserted.
+        :raises ValidationError: If there are issues with the data provided.
+        """
+    if not isinstance(credit, Credit):
+        raise Exception('The argument must be Credit Type')
+    try:
+        movie_id = credit['movie_id']
+        Movie.objects(_id=movie_id)  # Ensure movie_id_str is a string representation of ObjectId
+    except DoesNotExist:
+        print(f"No movie found with id {movie_id}")
+        return
+    except ValidationError as e:
+        print(f"Validation error for movie ID: {e}")
+        return
+    try:
+        # Data validation before saving
+        credit.validate()
+        # Insert the movie into the database
+        credit.save()
+    except ValidationError as e:
+        print(f"====DATA IS INVALID====")
+        raise e
+    except NotUniqueError as e:
+        print(f"====CREDIT IS ALREADY EXISTED====")
+        raise e
+    # print(f"Insert {credit['_id']} successfully")
+    return credit
+
+
+def insert_interaction(interaction):
     """
     Insert a new interaction into the 'user_interactions' collection.
 
@@ -131,11 +150,17 @@ def insert_interaction(*args, **kwargs):
 
     :return: The UserInteraction document that was inserted or an error message.
     """
-    if args and isinstance(args[0], UserInteraction):
-        interaction = args[0]
-    else:
-        interaction = UserInteraction(**kwargs)
-
+    if not isinstance(interaction, UserInteraction):
+        raise Exception('The argument must be UserInteraction Type')
+    try:
+        movie_id = interaction['movie_id']
+        Movie.objects(_id=movie_id)  # Ensure movie_id_str is a string representation of ObjectId
+    except DoesNotExist:
+        print(f"No movie found with id {movie_id}")
+        return
+    except ValidationError as e:
+        print(f"Validation error for movie ID: {e}")
+        return
     try:
         interaction.validate()
         interaction.save()
@@ -167,9 +192,6 @@ def check_user_credentials(username, password):
             return "Password Incorrect."
         else:
             return user
-
-
-from mongoengine.queryset.visitor import Q
 
 
 def list_documents(collection, limit=100, sort_field='title', sort_direction=pymongo.ASCENDING, filter_by=None,
@@ -255,9 +277,117 @@ def get_keys(collection):
         keys = ['_id', 'title', 'type', 'description', 'release_year', 'age_certification', 'runtime', 'genres'
             , 'production_countries', 'seasons', 'imdb_id', 'imdb_score', 'imdb_votes', 'tmdb_popularity', 'tmdb_score']
     elif collection == 'credits':
-        keys = ['_id', 'person_id', 'movie_id', 'name', 'character', 'role']
+        keys = ['person_id', 'movie_id', 'name', 'character', 'role']
     elif collection == 'users':
-        keys = ['_id', "username", "password", "first_name", "last_name", "email", "token", "admin_status", "createAt"]
+        keys = ['_id', "username", "password", "email", "admin_status", "createAt"]
     elif collection == 'user_interactions':
-        keys = ['_id', 'user', 'movie', 'watched', 'liked', 'disliked', 'clicked', 'clicked_on']
+        keys = ['user_id', 'movie_id', 'liked', 'liked_on']
     return keys
+
+
+def preprocess_json_item(item, document_cls):
+    if not issubclass(document_cls, Document):
+        raise ValueError("The document_cls must be a subclass of mongoengine.Document.")
+    processed_item = {}
+    for field_name, field in document_cls._fields.items():
+        if field_name == '_id' and 'id' in item:
+            processed_item[field_name] = item['id']
+        elif field_name == '_id' and '_id' in item:
+            processed_item[field_name] = item['_id']
+        elif field_name in item:
+            value = item[field_name]
+            if value == '':
+                continue
+            if isinstance(field, StringField) and not isinstance(value, str):
+                processed_item[field_name] = str(value)
+            elif isinstance(field, IntField) and value != '':
+                processed_item[field_name] = int(value)
+            elif isinstance(field, FloatField) and value != '':
+                processed_item[field_name] = float(value)
+            elif isinstance(field, ListField) and isinstance(value, str):
+                processed_item[field_name] = ast.literal_eval(value)
+            else:
+                processed_item[field_name] = value
+        elif field.required:
+            if field_name != '_id':
+                raise ValueError(f"The required field '{field_name}' is missing from the input item.")
+    print(processed_item)
+    return document_cls(**processed_item)
+
+
+def custom_hash(title):
+    title = str(title).lower()
+    base = 257
+    mod = 10 ** 9 + 9
+    hash_value = 0
+    for char in title:
+        hash_value = (hash_value * base + ord(char)) % mod
+    return int(hash_value % 2)
+
+
+def insert_one(collection_name, document):
+    """
+    Insert a document into a MongoDB collection.
+
+    :param collection_name: The name of the collection to insert the document into.
+    :param document: A dictionary representing the document to insert.
+    :return: The ID of the inserted document.
+    """
+    if collection_name == 'movies':
+        return insert_movie(document)
+    elif collection_name == 'credits':
+        return insert_credit(document)
+    elif collection_name == 'users':
+        return create_user(document)
+    elif collection_name == 'user_interactions':
+        return insert_interaction(document)
+    else:
+        raise Exception('Invalid collection name')
+
+
+def delete_documents(collection_name, criteria):
+    model = get_model(collection_name)
+    print("Documents matching the filter:", model.objects(**criteria))
+    return model.objects(**criteria).delete()
+
+
+def get_item_by_id(collection_name, item_id):
+    try:
+        model = get_model(collection_name)
+        if collection_name == 'movies':
+            item = model.objects.get(_id=item_id)
+        else:
+            item = model.objects.get(id=item_id)
+        return item.to_dict()
+    except (DoesNotExist, ValidationError):
+        return None
+
+
+def update_one(collection_name, item_id, update_data):
+    """
+    Update a document in a collection.
+
+    :param collection_name: The name of the collection
+    :param item_id: The ID of the document to update
+    :param update_data: A dictionary of updates to apply
+    :return: The updated document or None if not found
+    """
+    model = get_model(collection_name)
+    if not model:
+        raise ValueError("No model found for collection: {}".format(collection_name))
+
+    try:
+        if collection_name == 'movies':
+            document = model.objects.get(_id=item_id)
+        else:
+            document = model.objects.get(id=item_id)
+
+        for field_name, value in update_data.items():
+            if hasattr(document, field_name):
+                setattr(document, field_name, value)
+
+        # Save the changes to the database
+        document.save()
+        return document
+    except DoesNotExist:
+        return None  # Or you can raise an exception as per your use case

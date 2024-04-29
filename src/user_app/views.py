@@ -6,7 +6,6 @@ import pymongo
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
 from src.db.connection import get_database, connect_database
 from src.db.operations import list_documents, get_model, get_keys
-from src.db.models import User
 
 user_blueprint = Blueprint('user', __name__)
 connect_database()

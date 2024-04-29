@@ -1,0 +1,116 @@
+/* navigation bar */
+.nav_bar {
+   margin: -8px -8px 0 -8px;
+   display: flex;
+   justify-content: space-between;
+}
+
+#logo {
+   background-color: rgb(122, 255, 206);
+   width: 15%;
+   padding: 10px; 
+   text-align: center;
+   box-shadow: 2px 2px 1px hsla(155, 61%, 45%, 0.333);
+}
+
+#links {
+   background-color: rgb(122, 255, 206);
+   width: 30%;
+   padding: 10px; 
+   text-align: center;
+   display: flex;
+   justify-content: space-around;
+   box-shadow: 2px 2px 1px hsla(155, 61%, 45%, 0.333);
+}
+
+
+/* body: search bar + texts */
+
+
+section {
+   margin: 10px 0 0 0;
+   padding: 10px 0 0 0;
+   width: 100%;
+}
+
+.main_heading {
+   text-align: center;
+   margin-top: 10px;
+   font-size: 26px;
+}
+
+
+/* header fonts */
+
+.main_heading h1 {
+   text-align: center;
+   font-size: 50px;
+   font-family: Arial, sans-serif;
+}
+
+
+
+/* body: preference boxes */
+
+
+.results {
+   height: 300px;
+   width: auto;
+   display: flex;
+   justify-content: space-around;
+}
+
+
+.display_boxes {
+   text-align: center;
+   background: rgb(122, 255, 206);
+   width: calc(100%/3);
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   
+   border-radius: 25px;
+
+   box-shadow: 
+   1px 2px 2px hsla(155, 61%, 45%, 0.333), 
+   2px 4px 4px hsla(155, 61%, 45%, 0.333), 
+   3px 6px 6px hsla(155, 61%, 45%, 0.333),
+   8px 16px 16px hsla(155, 61%, 45%, 0.333);
+}
+
+.box_header {
+   background-color: white;
+   width: 90%;
+   height: 40px;
+   margin: 10px 0px 0px 15px;
+   border-radius: 40px;
+   text-align: center;
+   font-size: 30px;
+   
+   display: inline-block;
+
+   box-shadow: 1px 2px 2px hsla(180, 1%, 26%, 0.478);
+}
+
+.display_boxes p {
+   font-size: 15px;
+}
+
+/* submit button */
+#explore_button {
+   text-align: center;
+   padding-top: 60px;
+}
+
+#explore_button button{
+   height: 50px;
+   width: 180px;
+   font-size: 20px;
+
+   background-color: rgb(122, 255, 206);
+   border: 1px solid black;
+
+   box-shadow: 
+   1px 2px 2px hsla(0, 0%, 0%, 0.333), 
+   2px 4px 4px hsla(0, 0%, 0%, 0.333);
+}

@@ -1,0 +1,114 @@
+/* navigation bar */
+.nav_bar {
+   margin: -8px -8px 0 -8px;
+   display: flex;
+   justify-content: space-between;
+}
+
+#logo {
+   background-color: rgb(122, 255, 206);
+   width: 15%;
+   padding: 10px; 
+   text-align: center;
+   box-shadow: 2px 2px 1px hsla(155, 61%, 45%, 0.333);
+}
+
+#links {
+   background-color: rgb(122, 255, 206);
+   width: 30%;
+   padding: 10px; 
+   text-align: center;
+   display: flex;
+   justify-content: space-around;
+   box-shadow: 2px 2px 1px hsla(155, 61%, 45%, 0.333);
+}
+
+
+/* header-text */
+
+.main_heading {
+   text-align: center;
+   padding-top: 20px;
+}
+
+.box_header {
+   background-color: rgb(122, 255, 206);
+   border: 1px solid black;
+   width: 45%;
+   
+   margin-left: 27.5%;
+   margin-top: 20px;
+   margin-bottom: 40px;
+
+   border-radius: 40px;
+   text-align: center;
+   
+
+   box-shadow: 1px 2px 2px hsla(180, 1%, 26%, 0.478);
+}
+
+/* header fonts */
+
+.box_header h1 {
+   font-size: 40px;
+   font-family: Arial, sans-serif;
+}
+
+.main_heading h2 {
+   text-align: center;
+   font-size: 30px;
+   font-family: Arial, sans-serif;
+
+}
+
+/* body */
+
+
+section {
+   margin-top: 5px;
+   width: 100%;
+   height: auto;
+   display: flex;
+   flex-direction: row;
+}
+
+/* The catalog */
+ 
+.catalog {
+   background-color: rgba(219, 252, 231, 0.558);
+   border: 1px solid black;
+
+   display: flex;
+   flex-direction: column;
+   
+   height: 350px;
+   width: 50%;
+   margin-left: 25%;
+
+   text-align: left;
+   overflow-x: hidden;
+   overflow-y: auto;
+}
+
+
+.catalog select {
+   width: 50%;
+   height: auto;
+}
+
+/* add favorite button */
+#favorite_button {
+   text-align: center;
+   padding-top: 150px;
+   padding-left: 50px;
+}
+
+#favorite_button button{
+   height: 50px;
+   width: 100px;
+   font-size: 20px;
+   background-color: rgb(122, 255, 206);
+   border: 1px solid black;
+}
+
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="{{ url_for('static', filename='style_rec.css')}}">
+
+</head>
+<body>
+   <header>
+      <div class = "nav_bar">
+         <div id="logo">
+            <a>DSCI_551_project</a>
+         </div>
+         <div id = "links">
+            <a href="index.html">Home</a>
+            <a href="recommendations.html">Recommendations</a>
+            <a href="catalog.html">Catalog</a>
+         </div>
+      </div>
+   </header>
+
+   <section>
+      <div class="main_heading">
+         <h1>Here are your recommendations </h1>
+      </div>
+
+      <div class="results">
+      {% for movie in movies %}
+         <div class="display_boxes">
+            <div class="box_header">{{movie.title}}</div>
+            <p>IMDB Score: {{movie.imdb_score}}</p>
+            <p>Genre: {{movie.genres}}</p>
+            <p>Length: {{movie.runtime}}</p>
+            <p>Year: {{movie.release_year}}</p>
+         </div>
+      {% endfor %}
+      </div>
+
+   </section>
+
+   
+   
+   <script></script>
+</body>
+</html>

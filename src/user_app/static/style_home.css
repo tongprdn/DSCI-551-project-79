@@ -1,0 +1,174 @@
+/* navigation bar */
+.nav_bar {
+   margin: -8px -8px 0 -8px;
+   display: flex;
+   justify-content: space-between;
+}
+
+#logo {
+   background-color: rgb(122, 255, 206);
+   width: 15%;
+   padding: 10px; 
+   text-align: center;
+   box-shadow: 2px 2px 1px hsla(155, 61%, 45%, 0.333);
+}
+
+#links {
+   background-color: rgb(122, 255, 206);
+   width: 30%;
+   padding: 10px; 
+   text-align: center;
+   display: flex;
+   justify-content: space-around;
+   box-shadow: 2px 2px 1px hsla(155, 61%, 45%, 0.333);
+}
+
+
+/* body: search bar + texts */
+
+body {
+   background-color: white;
+}
+
+section {
+   margin: 10px 0 0 0;
+   padding: 10px 0 0 0;
+   width: 100%;
+}
+
+.main_heading {
+   text-align: center;
+   margin-top: 10px;
+   font-size: 26px;
+}
+
+.search_bar{
+   float: center;
+   width: 40%;
+   margin: auto;
+   
+}
+
+/* header fonts */
+
+.main_heading h1 {
+   text-align: center;
+   font-size: 50px;
+   font-family: Arial, sans-serif;
+}
+
+.main_heading h2 {
+   text-align: center;
+   font-size: 35px;
+   font-family: Arial, sans-serif;
+}
+
+.main_heading h3 {
+   text-align: center;
+   padding-top: 20px;
+   font-size: 30px;
+   font-family: Arial, sans-serif;
+}
+
+/* search bar */
+
+.main_heading input[type=text] {
+   float: left;
+   padding: 6px 0px 8px 5px;
+   width: 90%;
+   font-size: 22px;
+
+   border: 3px solid black;
+   border-radius: 25px;
+}
+
+.main_heading button {
+   float: right;
+   background: white;
+   width: 8%;
+   cursor: pointer;
+
+}
+
+/* body: preference boxes */
+
+.preferences {
+   height: 150px;
+   width: auto;
+   display: flex;
+   justify-content: space-between;
+}
+
+.input_boxes {
+   text-align: center;
+   width: calc(100%/3);
+   height: 100%;
+   margin: 10px 30px 0px 30px;
+   
+   background: rgb(122, 255, 206);
+   border-radius: 25px;
+
+   box-shadow: 
+   1px 2px 2px hsla(155, 61%, 45%, 0.333), 
+   2px 4px 4px hsla(155, 61%, 45%, 0.333), 
+   3px 6px 6px hsla(155, 61%, 45%, 0.333),
+   8px 16px 16px hsla(155, 61%, 45%, 0.333);
+}
+
+.box_header {
+   background-color: white;
+   width: 90%;
+   height: 40px;
+   margin: 10px 0px 0px 15px;
+   border-radius: 40px;
+   text-align: center;
+   font-size: 30px;
+
+   box-shadow: 1px 2px 2px hsla(180, 1%, 26%, 0.478);
+}
+
+.options_1 {
+   padding-top: 20px;
+   font-size: 20px;
+}
+
+.options {
+   padding-top: 20px;
+   font-size: 20px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+#dir_name {
+   font-size: 15px;
+}
+
+#actor_name {
+   font-size: 15px;
+}
+
+.text_box {
+   font-size: 25px;
+}
+
+
+/* submit button */
+#submit_button {
+   text-align: center;
+   padding-top: 60px;
+}
+
+#submit_button button{
+   height: 50px;
+   width: 120px;
+   font-size: 20px;
+   background-color: rgb(122, 255, 206);
+   border: 1px solid black;
+   cursor: pointer;
+
+   box-shadow: 
+   1px 2px 2px hsla(0, 0%, 0%, 0.333), 
+   2px 4px 4px hsla(0, 0%, 0%, 0.333);
+}

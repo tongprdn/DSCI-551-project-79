@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" type ="text/css" href="{{ url_for('static', filename='style_catalog.css')}}">
+
+</head>
+<body>
+   <header>
+      <nav>
+         <div class = "nav_bar">
+            <div id="logo">
+               <a>DSCI_551_project</a>
+            </div>
+            <div id = "links">
+               <a href="index.html">Home</a>
+               <a href="recommendations.html">Recommendations</a>
+               <a href="catalog.html">Catalog</a>
+            </div>
+         </div>
+      </nav>
+   </header>
+
+   <div class = 'main_heading'>
+      <div class = 'box_header'>
+         <h1>Welcome to the catalog</h1>
+      </div>
+      <h2>Please choose your favorite movies!</h2>
+   </div>
+
+   <section>
+
+      <div class = 'catalog'>
+         {% for movie in movies %}
+         <input type="checkbox" id="like_movies" value="American flamingo"/> {{movie.title}}
+         {% endfor %}
+      </div>
+
+      <form action="/catalog" method="post">
+         <div id = "favorite_button">
+            <button type="submit" id="favorite"><strong>Add</strong></button>
+         </div>
+      </form>
+   </section>
+   
+   <script src="index.js"></script>
+</body>
+</html>

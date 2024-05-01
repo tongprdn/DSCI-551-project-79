@@ -1,0 +1,23 @@
+[
+  {
+    "person_id": 1,
+    "movie_id": "a001",
+    "name": "Tony",
+    "character": "Tony",
+    "role": "ACTOR"
+  },
+  {
+    "person_id":  2,
+    "movie_id": "a001",
+    "name": "Pan",
+    "character": "",
+    "role": "ACTOR"
+  },
+  {
+    "person_id": 3,
+    "movie_id": "a002",
+    "name": "Sample Actor",
+    "character": "Main Character",
+    "role": "ACTOR"
+  }
+]

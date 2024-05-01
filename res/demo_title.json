@@ -1,0 +1,18 @@
+[
+  {
+    "_id": "a001",
+    "title": "Sample Movie 1",
+    "type": "MOVIE",
+    "description": "This is a sample description for DSCI551",
+    "release_year": 2024,
+    "age_certification": "PG-13"
+  },
+  {
+    "_id": "a002",
+    "title": "Sample Movie 2",
+    "type": "MOVIE",
+    "description": "This is a sample description for DSCI551",
+    "release_year": 2024,
+    "age_certification": "G"
+  }
+]

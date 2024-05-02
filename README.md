@@ -81,6 +81,8 @@ This project is a part of the final project in the University of Southern Califo
 * [![Mongo][mongo.js]][mongo-url]
 * [![flask][flask.js]][flask-url]
 * [![Javascript][javascript.js]][javascript-url]
+* [![Html][html.js]][html-url]
+* [![Css][css.js]][css-url]
 * [![AWS][aws.js]][aws-url]
 
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
@@ -403,3 +405,7 @@ Project Link: [https://github.com/tongprdn/DSCI-551-project-79/](https://github.
 [javascript-url]: https://www.javascript.com/
 [aws.js]: https://img.shields.io/badge/Amazon%20AWS-000000?style=for-the-badge&logo=amazonaws&logoColor=FF9900
 [aws-url]: https://aws.amazon.com/
+[html.js]: https://img.shields.io/badge/HTML5-FFFFFF?style=for-the-badge&logo=html5&logoColor=26418B
+[html-url]: https://www.w3.org/html/
+[css.js]: https://img.shields.io/badge/CSS3-FFFFFF?style=for-the-badge&logo=html5&logoColor=26418B
+[css-url]: https://www.w3.org/Style/CSS/Overview.en.html

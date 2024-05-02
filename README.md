@@ -23,26 +23,27 @@
 - [About The Project](#about-the-project)
   - [Project Scope](#project-scope)
   - [Database Specifications](#database-specifications)
-  - [Frontend Specification](#frontend-specification)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
+  - [Frontend Specification](#frontend-specifications)
 - [Project Structure](#project-structure)
-- [Running the Applications](#running-the-applications)
-  - [Admin Application](#admin-application)
-  - [User Application](#user-application)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+- [Getting Started](#getting-started)
+  - [Clone the repository](#clone-the-repository)
+  - [Install Dependencies](#install-dependencies)
+  - [Start MondoDB](#start-mondodb)
+  - [Running Admin Application](#running-the-admin-application)
+  - [Running User Application](#running-the-end-user-application)
+- [Optional Command](#-optional-command)
+  - [Troubleshooting](#troubleshooting-in-case-of-refused-connection)
+- [Online Documentation](#-online-documentation)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [Contact](#-contact)
 
 
 
 
 
 <!-- ABOUT THE PROJECT -->
-## ℹ️ About The Project
+## About The Project
 
 
 This project is a part of the final project in the University of Southern California for the course DSCI 551 - Foundations of Data Management. It is designed to create a scalable movie database with user interaction capabilities that solve real-world problems and improve user engagement with movie content.
@@ -83,7 +84,8 @@ This project is a part of the final project in the University of Southern Califo
 
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
-## 🏗️ Project Structure
+<!-- PROJECT STRUCTURE -->
+## Project Structure
 
 This project is organized into several directories and files structured as follows:
 
@@ -117,8 +119,9 @@ This project is organized into several directories and files structured as follo
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-## ✅ Getting Started
+## Getting Started
 
+<!-- CLONE THE REPOSITORY -->
 ### Clone the repository
 
 ```bash
@@ -126,14 +129,15 @@ This project is organized into several directories and files structured as follo
    cd yourrepositoryname
 ```
 
-### Install Dependencies:
+<!-- INSTALL DEPENDENCIES -->
+### Install Dependencies
 Navigate to the root directory of the project and run:
 ```bash
    pip install -r dep/requirements.txt
 ```
 
-
-### Start all MondoDB Database
+<!-- START MONGODB -->
+### Start MondoDB
 
 #### Config Server
 1. Connect to EC2
@@ -223,6 +227,7 @@ Navigate to the root directory of the project and run:
     ```
  <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
+<!-- RUNNING ADMIN APPLICATION -->
 ### Running the Admin Application
 * Set Flask Environment Variables:
   * For a development environment, you can set the environment variables like so:
@@ -239,6 +244,7 @@ Navigate to the root directory of the project and run:
 * 
     This will start the admin application on http://127.0.0.1:5000/.
 
+<!-- RUNNING END-USER APPLICATION -->
 ### Running the End-User Application
 * Set Flask Environment Variables:
   * For a development environment, you can set the environment variables like so:
@@ -255,7 +261,7 @@ Navigate to the root directory of the project and run:
 * 
     This will start the admin application on http://127.0.0.1:5000/.
 
-
+<!-- OPTIONAL COMMAND -->
 ## ⌥ Optional Command
 
 ### Shard Distribution (For Checking)  
@@ -300,7 +306,7 @@ Navigate to the root directory of the project and run:
    ```
 
 
-
+<!-- TROUBLESHOOTING -->
 ### Troubleshooting (In case of refused connection)
 - Check MongoDB process
    ```sh

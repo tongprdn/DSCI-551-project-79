@@ -365,8 +365,6 @@ List of online documentations needed in this project
     - [x] Bulk insertion
     - [x] Bulk deletion
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 

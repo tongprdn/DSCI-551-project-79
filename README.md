@@ -24,8 +24,9 @@
   - [Project Scope](#project-scope)
   - [Database Specifications](#database-specifications)
   - [Frontend Specification](#frontend-specifications)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
+  - [Built With](#-built-with)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
   - [Clone the repository](#clone-the-repository)
   - [Install Dependencies](#install-dependencies)
   - [Start MondoDB](#start-mondodb)
@@ -75,16 +76,17 @@ This project is a part of the final project in the University of Southern Califo
 
 
 
-### Built With
+### ⚙️ Built With
 
 * [![Mongo][mongo.js]][mongo-url]
 * [![flask][flask.js]][flask-url]
 * [![Javascript][javascript.js]][javascript-url]
+* [![AWS][aws.js]][aws-url]
 
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 <!-- PROJECT STRUCTURE -->
-## Project Structure
+## 🏗️ Project Structure
 
 This project is organized into several directories and files structured as follows:
 
@@ -118,7 +120,7 @@ This project is organized into several directories and files structured as follo
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
-## Getting Started
+## ✅ Getting Started
 
 <!-- CLONE THE REPOSITORY -->
 ### Clone the repository
@@ -394,3 +396,5 @@ Project Link: [https://github.com/tongprdn/DSCI-551-project-79/](https://github.
 [mongo-url]: https://www.mongodb.com/
 [javascript.js]: https://img.shields.io/badge/JavaScript-F7DB16?style=for-the-badge&logo=javascript&logoColor=000000
 [javascript-url]: https://www.javascript.com/
+[aws.js]: https://img.shields.io/badge/Amazon%20AWS-000000?style=for-the-badge&logo=amazonaws&logoColor=FF9900
+[aws-url]: https://aws.amazon.com/

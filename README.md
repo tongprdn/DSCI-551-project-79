@@ -1,8 +1,8 @@
-# Final Project - Team 79
+# Final Project Team 79
 
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/94/USC_Trojans_logo.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">DSCI 551 - Final Project</h3>
@@ -10,71 +10,132 @@
   <p align="center">
     Team #79 - Spring 2024
     <br />
-    <a href=""><strong>Explore the docs »</strong></a>
+    <a href="https://drive.google.com/drive/folders/1p96bKQpGfEkJU8u73eAg4Mwy787ojNMP?usp=sharing"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="">View Demo</a>
-    ·
-    <a href="">Report Bug</a>
-    ·
-    <a href="">Request Feature</a>
   </p>
 </div>
 
-### Folder Structure
-- src Folder: The source code folder! However, in languages that use headers (or if you have a framework for your application) don’t put those files in here
-- test Folder: Unit tests, integration tests… go here
-- .config Folder: It should local configuration related to setup on local machine
-- build Folder: This folder should contain all scripts related to build process (PowerShell, Docker compose…)
-- dep Folder: This is the directory where all your dependencies should be stored
-- doc Folder: The documentation folder
-- res Folder: For all static resources in your project. For example, images
-- samples Folder: Providing “Hello World” & Co code that supports the documentation
-- tools Folder: Convenience directory for your use. Should contain scripts to automate tasks in the project, for example, build scripts, rename scripts. Usually contains .sh, .cmd files for example
-
 
 <!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
+## 📔 Table of Contents
+- [About The Project](#about-the-project)
+  - [Project Scope](#project-scope)
+  - [Database Specifications](#database-specifications)
+  - [Frontend Specification](#frontend-specification)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Running the Applications](#running-the-applications)
+  - [Admin Application](#admin-application)
+  - [User Application](#user-application)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
-<!-- ACKNOWLEDGMENTS -->
-## Online Documentation
 
-Use this space to list online documentations needed in this project
 
-* [Google Drive](https://drive.google.com/drive/u/0/folders/1p96bKQpGfEkJU8u73eAg4Mwy787ojNMP)
-* [Project Proposal](https://docs.google.com/document/d/1rSKMuVN15UCtYD5BoVMNZgrb_VtyGrW0GbE4PmHNac0/edit?usp=sharing)
-* [Progression Report](https://docs.google.com/document/d/1KXXet0OK6BldWUDonNF7j6mLJ_OmFQige_xx4EZLFTQ/edit#heading=h.14yodgbfx7y8)
-* [Demo Presentation](https://docs.google.com/presentation/d/1Du0f4_SO0B37q01UTuK1pHd8LOc6M_KUy8gqVuJKlHY/edit?usp=sharing)
-* [Final Report]()
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## How to start all MondoDB Instances
+<!-- ABOUT THE PROJECT -->
+## ℹ️ About The Project
 
-### Config Server
+
+This project is a part of the final project in the University of Southern California for the course DSCI 551 - Foundations of Data Management. It is designed to create a scalable movie database with user interaction capabilities that solve real-world problems and improve user engagement with movie content.
+
+#### Project Scope
+* Objective: To design and implement a robust MongoDB database that facilitates efficient storage and management of movie data along with user interactions.
+
+#### Key Features:
+
+* Admin Application: A web-based interface that provides CRUD (Create, Read, Update, Delete) functionality for managing movie data.
+* User Application: Allows users to search, explore, and interact with movie information. Features include liking, disliking, marking movies as watched, and more. These interactions are stored for further data analysis to enhance recommendations and user experience.
+
+#### Database Specifications
+* Database System: MongoDB hosted on EC2 Ubuntu instances.
+* MongoDB Sharding: Implemented for horizontal scalability and fault tolerance.
+  * 2 Shard Servers: Each with 3 replicas.
+  * 1 Config Server: With 3 replicas.
+  * 1 Mongos Server: For application access.
+* Collections: Movies, Users, User Interactions.
+
+#### Frontend Specifications
+* Technologies Used: HTML, CSS, JavaScript, Flask.
+* Hosting Platform: GitHub.
+* Key Pages:
+  * Home Page: Features search and movie recommendations.
+  * Recommendation Page: Dynamically suggests movies based on user interactions.
+  * Catalog Page: Extensive list of movies with filtering options.
+
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
+
+
+
+### Built With
+
+* [![Mongo][mongo.js]][mongo-url]
+* [![flask][flask.js]][flask-url]
+* [![Javascript][javascript.js]][javascript-url]
+
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
+
+## 🏗️ Project Structure
+
+This project is organized into several directories and files structured as follows:
+
+- `.github/`
+  - Various files for github usage.
+- `dep/`
+  - `requirements.txt` - List of dependencies for the project.
+- `doc/`
+  - Various documentation files and proposals related to the project.
+- `res/`
+  - Resource files like CSVs and JSON documents used in the project.
+- `src/`
+  - Source code for the project including the two main applications:
+    - `admin_app/` - Administrative web application.
+      - `static/` - Static files like CSS and JavaScript for the admin app.
+      - `templates/` - HTML templates for rendering admin app views.
+      - `__init__.py`, `config.py`, `forms.py`, `views.py` - Python modules for Flask app configuration, form definitions, and view functions.
+    - `db/`
+      - `connection.py` - Database connection configurations.
+      - `models.py` - Definitions of MongoDB models.
+      - `operations.py` - Database operations such as insert and update functions.
+    - `user_app/` - User-facing web application.
+      - `static/`, `templates/`, similar structure to `admin_app`.
+      - `__init__.py`, `config.py`, `views.py` - Python modules specific to the user app.
+- `test/`
+  - Python scripts for testing various components of the applications.
+- `README.md` - Overview and general information about the project.
+- `LICENSE` - The license under which the project is released.
+- `.gitignore`, `.editorconfig`, `.gitattributes`, `VERSIONING.md` - Configuration files for git, editor settings, attribute specifications, and versioning guidelines.
+
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+## ✅ Getting Started
+
+### Clone the repository
+
+```bash
+   git clone https://github.com/tongprdn/DSCI-551-project-79.git
+   cd yourrepositoryname
+```
+
+### Install Dependencies:
+Navigate to the root directory of the project and run:
+```bash
+   pip install -r dep/requirements.txt
+```
+
+
+### Start all MondoDB Database
+
+#### Config Server
 1. Connect to EC2
     ```sh
     ssh -i "dsci551-team79.pem" ubuntu@ec2-54-193-107-112.us-west-1.compute.amazonaws.com
@@ -95,9 +156,9 @@ Use this space to list online documentations needed in this project
     ```sh
     rs.status()
     ```
- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+ <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
-### Shard 1
+#### Shard 1
 1. Connect to EC2
     ```sh
     ssh -i "dsci551-team79.pem" ubuntu@ec2-18-144-138-11.us-west-1.compute.amazonaws.com
@@ -118,9 +179,9 @@ Use this space to list online documentations needed in this project
     ```sh
     rs.status()
     ```
- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+ <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
-### Shard 2
+#### Shard 2
 1. Connect to EC2
     ```sh
     ssh -i "dsci551-team79.pem" ubuntu@ec2-50-18-187-166.us-west-1.compute.amazonaws.com
@@ -141,9 +202,9 @@ Use this space to list online documentations needed in this project
     ```sh
     rs.status()
     ```
- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+ <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
-### Mongos
+#### Mongos
 1. Connect to EC2
     ```sh
     ssh -i "dsci551-team79.pem" ubuntu@ec2-13-57-137-224.us-west-1.compute.amazonaws.com
@@ -160,9 +221,58 @@ Use this space to list online documentations needed in this project
     ```sh
     sh.status()
     ```
- <p align="right">(<a href="#readme-top">back to top</a>)</p>
+ <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
-## Shard Configuration
+### Running the Admin Application
+* Set Flask Environment Variables:
+  * For a development environment, you can set the environment variables like so:
+  <a href="https://ibb.co/SRH8wvs"><img src="https://i.ibb.co/4PCGRNm/Screenshot-2567-05-01-at-16-50-30.png" alt="Screenshot-2567-05-01-at-16-50-30" border="0"></a>
+  ```bash
+  export FLASK_APP=src/admin_app
+  export FLASK_ENV=development
+  ```
+* Run the Flask Application:
+  * From the root of your project directory, execute:
+  ```bash
+    flask run
+  ```
+* 
+    This will start the admin application on http://127.0.0.1:5000/.
+
+### Running the End-User Application
+* Set Flask Environment Variables:
+  * For a development environment, you can set the environment variables like so:
+  <a href="https://ibb.co/q0KpYv5"><img src="https://i.ibb.co/8zq9gHc/Screenshot-2567-05-01-at-16-51-22.png" alt="Screenshot-2567-05-01-at-16-51-22" border="0"></a>
+  ```bash
+  export FLASK_APP=src/user_app
+  export FLASK_ENV=development
+  ```
+* Run the Flask Application:
+  * From the root of your project directory, execute:
+  ```bash
+    flask run
+  ```
+* 
+    This will start the admin application on http://127.0.0.1:5000/.
+
+
+## ⌥ Optional Command
+
+### Shard Distribution (For Checking)  
+- Database sharding status
+   ```sh
+    db.printShardingStatus()
+   ```
+- Balancer State
+   ```sh
+    sh.getBalancerState()
+   ```
+- Collection shard distribution
+   ```sh
+    db.movies.getShardDistribution()
+   ```
+  
+### Shard Configuration (Don't need to run again)
 - Enable Sharding
    ```sh
     sh.enableSharding("netflix_data")
@@ -189,23 +299,9 @@ Use this space to list online documentations needed in this project
 	)
    ```
 
-## Shard Distribution Checking  
-- Database sharding status
-   ```sh
-    db.printShardingStatus()
-   ```
-- Balancer State
-   ```sh
-    sh.getBalancerState()
-   ```
-- Collection shard distribution
-   ```sh
-    db.movies.getShardDistribution()
-   ```
 
 
-
-## Troubleshooting
+### Troubleshooting (In case of refused connection)
 - Check MongoDB process
    ```sh
     ps -aef  | grep "mongo"
@@ -236,113 +332,40 @@ Use this space to list online documentations needed in this project
    ```
       
   
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
+<!-- ONLINE DOCUMENTATION -->
+## 📚 Online Documentation
 
+List of online documentations needed in this project
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+* [Google Drive](https://drive.google.com/drive/u/0/folders/1p96bKQpGfEkJU8u73eAg4Mwy787ojNMP)
+* [Project Proposal](https://docs.google.com/document/d/1rSKMuVN15UCtYD5BoVMNZgrb_VtyGrW0GbE4PmHNac0/edit?usp=sharing)
+* [Progression Report](https://docs.google.com/document/d/1KXXet0OK6BldWUDonNF7j6mLJ_OmFQige_xx4EZLFTQ/edit#heading=h.14yodgbfx7y8)
+* [Demo Presentation](https://docs.google.com/presentation/d/1Du0f4_SO0B37q01UTuK1pHd8LOc6M_KUy8gqVuJKlHY/edit?usp=sharing)
+* [Final Report](https://docs.google.com/document/d/1SaELOd2xxvorXVx_5k9DLIc-z-BvJazkcU_zMrAllh8/edit?usp=sharing)
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 
 <!-- ROADMAP -->
-## Roadmap
+## 🗺️ Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [x] Add Security Group
+- [x] Super Admin control
+- [x] Add favorite function
+- [x] Add bulk operation
+    - [x] Bulk insertion
+    - [x] Bulk deletion
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 
 
 <!-- CONTRIBUTING -->
-## Contributing
+## ✍️ Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -355,76 +378,33 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
 
 
 <!-- CONTACT -->
-## Contact
+## ☎️ Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Pooridon Rattanapairote - prattana@usc.edu
+Pannawat Chauychoo - pchauych@usc.edu
 
 
+Project Link: [https://github.com/tongprdn/DSCI-551-project-79/](https://github.com/tongprdn/DSCI-551-project-79/)
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
+<p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+[JQuery-url]: https://jquery.com
+[flask.js]: https://img.shields.io/badge/Flask-FFFFFF?style=for-the-badge&logo=flask&logoColor=55F0E9
+[flask-url]: https://flask.palletsprojects.com/
+[mongo.js]: https://img.shields.io/badge/MongoDB-0B0947?style=for-the-badge&logo=mongodb&logoColor=89FF6F
+[mongo-url]: https://www.mongodb.com/
+[javascript.js]: https://img.shields.io/badge/JavaScript-F7DB16?style=for-the-badge&logo=javascript&logoColor=000000
+[javascript-url]: https://www.javascript.com/

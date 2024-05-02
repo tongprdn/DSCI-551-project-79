@@ -140,6 +140,13 @@ Navigate to the root directory of the project and run:
 <!-- START MONGODB -->
 ### Start MondoDB
 
+#### EC2 Private Key
+* EC2 key is contains in 
+```path
+    /res/dsci551-team79.pem
+```
+* Copy this to where you want to run shell command
+
 #### Config Server
 1. Connect to EC2
     ```sh

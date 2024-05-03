@@ -149,6 +149,10 @@ Navigate to the root directory of the project and run:
 * Copy this to where you want to run shell command
 
 #### Config Server
+
+> [!WARNING]  
+> Your IP Address must be whitelisted in EC2 Security Group before proceeding these steps 
+
 1. Connect to EC2
     ```sh
     ssh -i "dsci551-team79.pem" ubuntu@ec2-54-193-107-112.us-west-1.compute.amazonaws.com

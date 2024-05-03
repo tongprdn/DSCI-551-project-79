@@ -428,5 +428,5 @@ Project Link: [https://github.com/tongprdn/DSCI-551-project-79/](https://github.
 [aws-url]: https://aws.amazon.com/
 [html.js]: https://img.shields.io/badge/HTML5-FFFFFF?style=for-the-badge&logo=html5&logoColor=26418B
 [html-url]: https://www.w3.org/html/
-[css.js]: https://img.shields.io/badge/CSS3-FFFFFF?style=for-the-badge&logo=html5&logoColor=26418B
+[css.js]: https://img.shields.io/badge/CSS3-FFFFFF?style=for-the-badge&logo=css3&logoColor=26418B
 [css-url]: https://www.w3.org/Style/CSS/Overview.en.html

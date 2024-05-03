@@ -153,7 +153,11 @@ Navigate to the root directory of the project and run:
 #### Config Server
 
 > [!WARNING]  
-> Your IP Address must be whitelisted in EC2 Security Group before proceeding these steps (to prevent ransom script on ec2 network)
+> Your IP Address must be whitelisted in EC2 Security Group before proceeding these steps (to prevent ransom script on ec2 network).
+> Please contact me to do so
+```text
+    prattana@usc.edu
+```
 
 1. Connect to EC2
     ```sh

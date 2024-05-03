@@ -116,7 +116,6 @@ This project is organized into several directories and files structured as follo
 - `test/`
   - Python scripts for testing various components of the applications.
 - `README.md` - Overview and general information about the project.
-- `LICENSE` - The license under which the project is released.
 - `.gitignore`, `.editorconfig`, `.gitattributes`, `VERSIONING.md` - Configuration files for git, editor settings, attribute specifications, and versioning guidelines.
 
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>

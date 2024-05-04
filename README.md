@@ -45,8 +45,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-
-This project is a part of the final project in the University of Southern California for the course DSCI 551 - Foundations of Data Management. It is designed to create a scalable movie database with user interaction capabilities that solve real-world problems and improve user engagement with movie content.
+> [!IMPORTANT]
+> This project is a part of the final project in the University of Southern California for the course DSCI 551 - Foundations of Data Management. It is designed to create a scalable movie database with user interaction capabilities that solve real-world problems and improve user engagement with movie content.
 
 #### Project Scope
 * Objective: To design and implement a robust MongoDB database that facilitates efficient storage and management of movie data along with user interactions.
@@ -116,7 +116,6 @@ This project is organized into several directories and files structured as follo
 - `test/`
   - Python scripts for testing various components of the applications.
 - `README.md` - Overview and general information about the project.
-- `LICENSE` - The license under which the project is released.
 - `.gitignore`, `.editorconfig`, `.gitattributes`, `VERSIONING.md` - Configuration files for git, editor settings, attribute specifications, and versioning guidelines.
 
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
@@ -143,13 +142,23 @@ Navigate to the root directory of the project and run:
 ### Start MondoDB
 
 #### EC2 Private Key
-* EC2 key is contains in 
+> [!IMPORTANT]
+> EC2 key is contains in this path:
+
 ```path
     /res/dsci551-team79.pem
 ```
 * Copy this to where you want to run shell command
 
 #### Config Server
+
+> [!WARNING]  
+> Your IP Address must be whitelisted in EC2 Security Group before proceeding these steps (to prevent ransom script on ec2 network).
+> Please contact me to do so
+```text
+    prattana@usc.edu
+```
+
 1. Connect to EC2
     ```sh
     ssh -i "dsci551-team79.pem" ubuntu@ec2-54-193-107-112.us-west-1.compute.amazonaws.com
@@ -241,6 +250,8 @@ Navigate to the root directory of the project and run:
 ### Running the Admin Application
 * Set Flask Environment Variables:
   * For a development environment, you can set the environment variables like so:
+> [!NOTE]
+> This is the screenshot from PyCharm 2023.2.1 (Professional Edition)
   <a href="https://ibb.co/SRH8wvs"><img src="https://i.ibb.co/4PCGRNm/Screenshot-2567-05-01-at-16-50-30.png" alt="Screenshot-2567-05-01-at-16-50-30" border="0"></a>
   ```bash
   export FLASK_APP=src/admin_app
@@ -258,6 +269,8 @@ Navigate to the root directory of the project and run:
 ### Running the End-User Application
 * Set Flask Environment Variables:
   * For a development environment, you can set the environment variables like so:
+> [!NOTE]
+> This is the screenshot from PyCharm 2023.2.1 (Professional Edition)
   <a href="https://ibb.co/q0KpYv5"><img src="https://i.ibb.co/8zq9gHc/Screenshot-2567-05-01-at-16-51-22.png" alt="Screenshot-2567-05-01-at-16-51-22" border="0"></a>
   ```bash
   export FLASK_APP=src/user_app
@@ -274,6 +287,9 @@ Navigate to the root directory of the project and run:
 <!-- OPTIONAL COMMAND -->
 ## ⌥ Optional Command
 
+> [!NOTE]
+> These commands is only for checking status of each sharding element
+
 ### Shard Distribution (For Checking)  
 - Database sharding status
    ```sh
@@ -288,7 +304,10 @@ Navigate to the root directory of the project and run:
     db.movies.getShardDistribution()
    ```
   
-### Shard Configuration (Don't need to run again)
+### Shard Configuration 
+> [!NOTE]
+> These commands is only needed when setting up database (Grader won't need to run this)
+
 - Enable Sharding
    ```sh
     sh.enableSharding("netflix_data")
@@ -317,7 +336,9 @@ Navigate to the root directory of the project and run:
 
 
 <!-- TROUBLESHOOTING -->
-### Troubleshooting (In case of refused connection)
+### Troubleshooting 
+> [!NOTE]
+> These steps would be needed in case of facing refused connection
 - Check MongoDB process
    ```sh
     ps -aef  | grep "mongo"
@@ -407,5 +428,5 @@ Project Link: [https://github.com/tongprdn/DSCI-551-project-79/](https://github.
 [aws-url]: https://aws.amazon.com/
 [html.js]: https://img.shields.io/badge/HTML5-FFFFFF?style=for-the-badge&logo=html5&logoColor=26418B
 [html-url]: https://www.w3.org/html/
-[css.js]: https://img.shields.io/badge/CSS3-FFFFFF?style=for-the-badge&logo=html5&logoColor=26418B
+[css.js]: https://img.shields.io/badge/CSS3-FFFFFF?style=for-the-badge&logo=css3&logoColor=26418B
 [css-url]: https://www.w3.org/Style/CSS/Overview.en.html

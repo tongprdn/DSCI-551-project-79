@@ -63,13 +63,10 @@
 
 /* body */
 
-
 section {
    margin-top: 5px;
    width: 100%;
    height: auto;
-   display: flex;
-   flex-direction: row;
 }
 
 /* The catalog */
@@ -90,17 +87,20 @@ section {
    overflow-y: auto;
 }
 
+.horizontal_check {
+   display: flex;
+   flex-direction: row;
+}
 
-.catalog select {
-   width: 50%;
-   height: auto;
+/* add strikethrough */
+input[type=checkbox]:checked + label.strikethrough {
+   text-decoration: line-through;
 }
 
 /* add favorite button */
 #favorite_button {
    text-align: center;
-   padding-top: 150px;
-   padding-left: 50px;
+   padding-top: 10px;
 }
 
 #favorite_button button{

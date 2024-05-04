@@ -31,20 +31,20 @@
    </div>
 
    <section>
-
-      <div class = 'catalog'>
-         {% for movie in movies %}
-         <input type="checkbox" id="like_movies" value="American flamingo"/> {{movie.title}}
-         {% endfor %}
-      </div>
-
-      <form action="/catalog" method="post">
+      <form action="catalog.html" method="post">
+         <div class = 'catalog'>
+            {% for movie in movies %}
+            <div class = 'horizontal_check'>
+               <input type="checkbox" name="like_movies" value= "{{movie.title}}"/> 
+               <label for="like_movies" class="strikethrough"> {{movie.title}} </label>
+            </div>
+            {% endfor %}
+         </div>
          <div id = "favorite_button">
             <button type="submit" id="favorite"><strong>Add</strong></button>
          </div>
       </form>
    </section>
-   
-   <script src="index.js"></script>
+
 </body>
 </html>

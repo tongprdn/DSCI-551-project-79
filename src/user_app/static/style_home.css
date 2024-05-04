@@ -42,12 +42,12 @@ section {
    font-size: 26px;
 }
 
-.search_bar{
+.search_bar {
    float: center;
-   width: 40%;
+   width: 50%;
    margin: auto;
-   
 }
+
 
 /* header fonts */
 

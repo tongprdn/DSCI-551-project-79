@@ -1,0 +1,311 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.flashes{
+    color: red;
+}
+
+.login-container {
+    width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.description-header {
+  width: 1000px;
+}
+.title-header {
+  width: 200px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.errors {
+    color: red;
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+button#delete:not([disabled]) {
+  background-color: red;
+  transition: background-color 0.3s ease; /* Optional: smoother color transition */
+}
+
+/* Optional: Specify a lighter red color for hover effect */
+button#delete:hover:not([disabled]) {
+  background-color: #ffcccc; /* Light red */
+}
+
+button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    background-color: #5cb85c;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+
+
+/* Style for the content area */
+.content {
+    margin-left: 200px; /* Same as the width of the sidebar */
+    padding: 1px 16px;
+    height: 1000px;
+}
+
+/* Sidebar style */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+/* Checkbox styles */
+.checkbox {
+    margin-right: 10px;
+}
+
+/* Header checkbox */
+.th-checkbox {
+    position: relative;
+    padding-left: 15px;
+}
+
+.th-checkbox input[type="checkbox"] {
+    position: absolute;
+    margin-top: 0.5em;
+    margin-left: -15px;
+}
+
+.top-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls-container {
+  display: flex;
+  gap: 10px;
+}
+
+
+.sidebar {
+  width: 200px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #f9f9f9;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+/* Add hover effects */
+.sidebar ul li a:hover {
+  background-color: #ddd;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 100; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px; /* adjust padding as necessary */
+  background-color: #f1f1f1; /* adjust background color as necessary */
+  border-bottom: 1px solid #ddd; /* adds a line to separate header from the body */
+}
+
+.modal-title {
+  font-size: 20px; /* adjust font size as necessary */
+}
+
+
+.close-btn {
+  background-color: #cccccc;
+  color: white;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+.close-btn:hover {
+  background-color: #f44336;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 5px;
+  width: 60%;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.input-group label {
+  flex-basis: 30%; /* adjusts the width of the label */
+  margin-right: 10px; /* adds some space between the label and the input */
+}
+
+.input-group input[type="text"]{
+  flex-basis: 70%; /* adjusts the width of the input */
+  padding: 5px;
+}
+
+
+.modal input[type="submit"] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+/* Style the upload button */
+.modal input[type="file"] {
+  margin-top: 10px;
+}
+
+
+
+
+

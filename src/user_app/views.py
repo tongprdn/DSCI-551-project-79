@@ -4,10 +4,10 @@ import os
 import pymongo
 from forms import LoginForm
 
-# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-from db.connection import get_database, connect_database
-from db.operations import list_documents, get_model, get_keys, check_user_credentials, create_user, insert_one
-from db.models import User, UserInteraction
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+from src.db.connection import get_database, connect_database
+from src.db.operations import list_documents, get_model, get_keys, check_user_credentials, create_user, insert_one
+from src.db.models import User, UserInteraction
 
 user_blueprint = Blueprint('user', __name__)
 connect_database()

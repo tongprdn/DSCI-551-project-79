@@ -13,7 +13,7 @@
     <a href="https://drive.google.com/drive/folders/1p96bKQpGfEkJU8u73eAg4Mwy787ojNMP?usp=sharing"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="">View Demo</a>
+    <a href="https://youtu.be/PY0i-6ASTjo">View Demo</a>
   </p>
 </div>
 
@@ -380,6 +380,7 @@ List of online documentations needed in this project
 * [Project Proposal](https://docs.google.com/document/d/1rSKMuVN15UCtYD5BoVMNZgrb_VtyGrW0GbE4PmHNac0/edit?usp=sharing)
 * [Progression Report](https://docs.google.com/document/d/1KXXet0OK6BldWUDonNF7j6mLJ_OmFQige_xx4EZLFTQ/edit#heading=h.14yodgbfx7y8)
 * [Demo Presentation](https://docs.google.com/presentation/d/1Du0f4_SO0B37q01UTuK1pHd8LOc6M_KUy8gqVuJKlHY/edit?usp=sharing)
+* [Demo Video](https://youtu.be/PY0i-6ASTjo)
 * [Final Report](https://docs.google.com/document/d/1SaELOd2xxvorXVx_5k9DLIc-z-BvJazkcU_zMrAllh8/edit?usp=sharing)
 
 <p align="right">(<a href="#final-project-team-79">back to top</a>)</p>
